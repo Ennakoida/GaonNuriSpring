@@ -25,12 +25,12 @@
 						<!-- 관리자 계정(admin)만 작성하기 버튼 보임  -->
 						<c:if test="${ sessionScope.userId eq 'admin' }">
 		                    <div id="write-notice">
-			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
+			                    <button onclick="location.href='/notice/insert.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
 	                    <c:if test="${ sessionScope.userId ne 'admin' }">
 		                    <div id="write-notice" style="visibility: hidden;">
-			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
+			                    <button onclick="location.href='/notice/insert.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
 						<!--  검색창 -->

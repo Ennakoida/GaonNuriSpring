@@ -4,7 +4,7 @@
 <html lang="ko">
     <head>
 		<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
-        <link rel="stylesheet" href="/resources/css/notice/writeNotice.css">
+        <link rel="stylesheet" href="/resources/css/notice/noticeInsert.css">
         <title>공지사항</title>
     </head>
     <body>

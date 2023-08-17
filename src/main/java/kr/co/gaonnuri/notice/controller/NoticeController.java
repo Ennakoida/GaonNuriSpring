@@ -55,7 +55,7 @@ public class NoticeController {
 				return "notice/noticeDetail";
 			} else {
 				model.addAttribute("msg", "공지사항 상세 조회");
-				model.addAttribute("url", "/user/notice.do");
+				model.addAttribute("url", "/notice/notice.do");
 				return "common/serviceFailed";
 			}
 		} catch (Exception e) {
@@ -102,8 +102,55 @@ public class NoticeController {
 	}
 	
 	// 공지사항 작성 페이지
+	@RequestMapping(value="/notice/insert.do", method=RequestMethod.GET)
+	public String showInsertNoticeForm() {
+		return "notice/noticeInsert";
+	}
+	
+	// 공지사항 작성 기능
+	@RequestMapping(value="/notice/insert.do", method=RequestMethod.POST)
+	public String InsertNotice(@RequestParam("notice-subject") String noticeSubject
+							   , @RequestParam("notice-content") String noticeContent
+							   , Model model) {
+		try {
+			Notice notice = new Notice(noticeSubject, noticeContent);
+			int result = service.insertNotice(notice);
+			
+			if(result > 0) {
+				return "notice/notice";
+			} else {
+				model.addAttribute("msg", "공지사항 작성");
+				model.addAttribute("url", "/notice/notice.do");
+				return "common/serviceFailed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
+	}
 	
 	// 공지사항 수정 페이지
 	
 	// 공지사항 삭제 페이지
+	@RequestMapping(value="/notice/delete.do", method=RequestMethod.GET)
+	public String deleteNotice(@RequestParam("noticeNo") int noticeNo, Model model) {
+		try {
+	//		int noticeNo = Integer.parseInt(noticeNum);
+			int result = service.deleteNotice(noticeNo);
+			if(result > 0)
+			{
+				//성공시 목록으로 이동
+				return "redirect:/notice/notice.do";
+			} else {
+				model.addAttribute("msg", "공지사항 삭제");
+				model.addAttribute("url", "/notice/notice.do");
+				return "common/serviceFailed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
+	}
 }
