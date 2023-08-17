@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="kr.co.gaonnuri.user.domain.User" alias="User"/>
+	</typeAliases>
+<!-- 	mapper 만들고 등록하자! -->
+	<mappers>
+		<mapper resource="mappers/user-mapper.xml"/>
+<!-- 		<mapper resource="mappers/reserve-mapper.xml"/> -->
+<!-- 		<mapper resource="mappers/hanbok-mapper.xml"/> -->
+		<mapper resource="mappers/notice-mapper.xml"/>
+	</mappers>
+</configuration>
