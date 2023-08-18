@@ -12,7 +12,7 @@
 <!-- 	mapper 만들고 등록하자! -->
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"/>
-<!-- 		<mapper resource="mappers/reserve-mapper.xml"/> -->
+		<mapper resource="mappers/reserve-mapper.xml"/>
 <!-- 		<mapper resource="mappers/hanbok-mapper.xml"/> -->
 		<mapper resource="mappers/notice-mapper.xml"/>
 	</mappers>

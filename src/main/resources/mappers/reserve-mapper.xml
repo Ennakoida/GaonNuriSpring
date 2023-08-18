@@ -5,7 +5,7 @@
   
 <mapper namespace="ReserveMapper">
 	
-	<resultMap type="event.reservation.model.vo.Reserve" id="reserveResultMap">
+	<resultMap type="kr.co.gaonnuri.event.reservation.domain.Reserve" id="reserveResultMap">
 		<result property="reserveUser"  column="RESERVE_USER"/>
 		<result property="reservePlace"  column="RESERVE_PLACE"/>
 		<result property="reserveDate"   column="RESERVE_DATE"/>
