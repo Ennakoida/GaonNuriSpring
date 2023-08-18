@@ -30,7 +30,7 @@
 		SELECT * FROM NOTICE_TBL ORDER BY NOTICE_NO DESC
 	</select>
 	
-	<select id="getTotalCount" resultType="_int">
+	<select id="selectListCount" resultType="_int">
 		SELECT COUNT(*) FROM NOTICE_TBL
 	</select>
 	
@@ -40,10 +40,6 @@
 	
 	<select id="selectNoticeSearch" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE NOTICE_SUBJECT LIKE '%' || #{ noticeSubject } ||'%'
-	</select>
-	
-	<select id="getSearchTotalCount" resultType="_int">
-		SELECT COUNT(*) FROM NOTICE_TBL WHERE NOTICE_SUBJECT LIKE '%' || #{ noticeSubject } ||'%'
 	</select>
 	
 	<select id="selectOneByNo" resultMap="noticeResultMap">

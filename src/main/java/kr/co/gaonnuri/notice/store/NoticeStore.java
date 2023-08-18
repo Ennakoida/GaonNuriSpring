@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.gaonnuri.notice.domain.Notice;
+import kr.co.gaonnuri.notice.domain.PageInfo;
 
 public interface NoticeStore {
 	public int insertNotice(SqlSession sqlSession, Notice notice);
@@ -14,10 +15,10 @@ public interface NoticeStore {
 	public int deleteNotice(SqlSession sqlSession, int noticeNo);
 
 	// 공지사항 전체 목록
-	public List<Notice> selectNoticeList(SqlSession sqlSession, int currentPage);
-	
-	public String generatePageNavi(SqlSession sqlSession, int currentPage);
-	
+	public List<Notice> selectNoticeList(SqlSession sqlSession, PageInfo pInfo);
+
+	public int selectListCount(SqlSession sqlSession);
+
 	// 검색 목록
 	public List<Notice> selectNoticeSearch(SqlSession sqlSession, String noticeSubject);
 	
