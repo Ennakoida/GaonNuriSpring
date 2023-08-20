@@ -5,7 +5,7 @@
   
 <mapper namespace="HanbokMapper">
 
-	<resultMap type="hanbok.model.vo.Hanbok" id="hanbokResultMap">
+	<resultMap type="kr.co.gaonnuri.hanbok.domain.Hanbok" id="hanbokResultMap">
 		<result property="rentalUser"  column="RENTAL_USER"/>
 		<result property="rentalPlace"  column="RENTAL_PLACE"/>
 		<result property="rentalDate"   column="RENTAL_DATE"/>

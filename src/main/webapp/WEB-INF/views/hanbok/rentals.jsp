@@ -29,6 +29,7 @@
                 <!-- 한복 대여 목록 -->
                 <section id="shopping">
                     <form action="/hanbok/detail.do" method="get">
+                    	<input type="hidden" name="userId" value="${ sessionScope.userId }">
                     	<div id="select-input">
                             <div>
                                 <label for="select-place">○○○ 지점 선택</label><br>
@@ -45,7 +46,6 @@
                                 <label for="select-date">대여 일자</label><br>
                                 <input type="date" name="select-date" id="select-date" required>
                             </div>
-<!--                         </form> -->
                   		</div>
 	                    <div class="rental-list">
 	                        <div class="hanbok">
@@ -62,7 +62,6 @@
 	                                <img src="/resources/img/hanbok/heart.png" alt="찜하기(안됨)">
 	                                <!-- 대여하기 버튼 -->
 	                                <input type="submit" value="대여하기 >">
-<!-- 	                                <button onclick="location.href='/hanbok/detail.do'">대여하기 ></button> -->
 	                            </div>
 	                        </div>
 	                        <div class="hanbok">

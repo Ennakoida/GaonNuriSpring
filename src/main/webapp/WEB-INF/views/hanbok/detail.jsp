@@ -24,9 +24,7 @@
                     <!-- 옵션 선택 -->
                     <div id="select-option">
                         <form action="/hanbok/detail.do" method="post">
-                        	<c:if test="${ sessionScope.userId ne null }">
-                        		<input type="hidden" name="userId" value="${ sessionScope.userId }">
-                        	</c:if>
+                       		<input type="hidden" name="userId" value="${ sessionScope.userId }">
                         	<input type="hidden" name="rentalPlace" value="${ hanbok.rentalPlace }">
                         	<input type="hidden" name="rentalDate" value="${ hanbok.rentalDate }">
                             <label for="top-color">상의 색상</label><br>
