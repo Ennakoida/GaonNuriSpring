@@ -42,6 +42,33 @@
 		SELECT * FROM NOTICE_TBL WHERE NOTICE_SUBJECT LIKE '%' || #{ noticeSubject } ||'%'
 	</select>
 	
+		<select id="selectNoticesByKeyword" resultMap="noticeResultMap">
+		SELECT * FROM NOTICE_TBL
+		<if test="searchCondition == 'all'">
+			WHERE NOTICE_SUBJECT LIKE '%' || #{ searchKeyword } || '%' OR NOTICE_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'title'">
+			WHERE NOTICE_SUBJECT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE NOTICE_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		ORDER BY NOTICE_NO DESC
+	</select>
+	
+	<select id="selectListByKeywordCount" resultType="_int">
+		SELECT COUNT(*) FROM NOTICE_TBL
+		<if test="searchCondition == 'all'">
+			WHERE NOTICE_SUBJECT LIKE '%' || #{ searchKeyword } || '%' OR NOTICE_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'title'">
+			WHERE NOTICE_SUBJECT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE NOTICE_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+	</select>
+	
 	<select id="selectOneByNo" resultMap="noticeResultMap">
 		SELECT * FROM NOTICE_TBL WHERE NOTICE_NO = #{ noticeNo }
 	</select>

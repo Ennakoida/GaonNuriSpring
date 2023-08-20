@@ -19,7 +19,6 @@
                 </section>
                 <!-- 공지사항 -->
                 <section id="notice">
-                
                 	<div id="notice-menu">
 	                    <!-- 작성하기 버튼 -->
 						<!-- 관리자 계정(admin)만 작성하기 버튼 보임  -->
@@ -33,10 +32,17 @@
 			                    <button onclick="location.href='/notice/insert.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
-						<!--  검색창 -->
+	                    
+						<!-- 검색창 -->
 						<div id="search-notice">
 		                    <form name="searchForm" action="/notice/search.do" method="get" id="search-notice-input">
-		                    	<input type="search" name="notice-search" placeholder="검색어 입력">
+	                    		<!-- 검색 분류 -->
+	                    		<select name="searchCondition">
+									<option value="all">전체</option>
+									<option value="title">제목</option>
+									<option value="content">내용</option>
+								</select>
+		                    	<input type="search" name="searchKeyword" placeholder="검색어 입력">
 		                    	<div id="search-notice-icon">
 			                    	<a href="javascript:void(0)" onclick="getSearchNotice();"><img alt="검색" src="/resources/img/search-icon.png"></a>
 		                    	</div>

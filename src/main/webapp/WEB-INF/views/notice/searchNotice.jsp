@@ -33,10 +33,17 @@
 			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
-						<!--  검색창 -->
+	                    
+   						<!-- 검색창 -->
 						<div id="search-notice">
 		                    <form name="searchForm" action="/notice/search.do" method="get" id="search-notice-input">
-		                    	<input type="search" name="notice-search" placeholder="검색어 입력" value=${ noticeSearch }>
+	                    		<!-- 검색 분류 -->
+	                    		<select name="searchCondition">
+									<option value="all" <c:if test="${ searchCondition eq 'all' }">selected</c:if>>전체</option>
+									<option value="title" <c:if test="${ searchCondition eq 'title' }">selected</c:if>>제목</option>
+									<option value="content" <c:if test="${ searchCondition eq 'content' }">selected</c:if>>내용</option>
+								</select>
+		                    	<input type="search" name="searchKeyword" placeholder="검색어 입력" value=${ searchKeyword }>
 		                    	<div id="search-notice-icon">
 			                    	<a href="javascript:void(0)" onclick="getSearchNotice();"><img alt="검색" src="/resources/img/search-icon.png"></a>
 		                    	</div>
@@ -61,7 +68,47 @@
                     
                     <!-- 페이지 전환 버튼  -->
                     <ul id="page">
-						${ sPageNavi }
+                    	<!-- 이전 -->
+						<c:url var="prevPageUrl" value="/notice/search.do">
+							<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+							<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+							<c:param name="page" value="${ pInfo.startNavi - 1 }"></c:param>
+						</c:url>
+						<c:if test="${ pInfo.startNavi ne 1 }">
+							<li style="cursor: pointer;" onclick="location.href='${ prevPageUrl }'"><</li>
+						</c:if>
+						<c:if test="${ pInfo.startNavi eq 1 }">
+							<li><</li>
+						</c:if>
+						
+						<!-- 페이징 -->
+						<c:forEach begin="${ pInfo.startNavi }" end="${ pInfo.endNavi }" var="p">
+							<c:url var="pageUrl" value="/notice/search.do">
+								<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+								<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+								<c:param name="page" value="${ p }"></c:param>
+							</c:url>
+							
+							<c:if test="${ pInfo.currentPage ne p }">
+								<li onclick="location.href='${ pageUrl }'">${ p }</li>
+							</c:if>
+							<c:if test="${ pInfo.currentPage eq p }">
+								<li style="color: #EA5455; font-weight: bold;" onclick="location.href='${ pageUrl }'">${ p }</li>
+							</c:if>
+						</c:forEach>
+						
+						<!-- 다음 -->
+						<c:url var="nextPageUrl" value="/notice/search.do">
+							<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+							<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
+							<c:param name="page" value="${ pInfo.endNavi + 1 }"></c:param>
+						</c:url>
+						<c:if test="${ pInfo.endNavi ne pInfo.naviTotalCount }">
+							<li style="cursor: pointer;" onclick="location.href='${ nextPageUrl }'">></li>
+						</c:if>
+						<c:if test="${ pInfo.endNavi eq pInfo.naviTotalCount }">
+							<li>></li>
+						</c:if>
                     </ul>
                 </section>
             </main>

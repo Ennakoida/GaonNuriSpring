@@ -33,10 +33,16 @@
 			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
-						<!--  검색창 -->
+						<!-- 검색창 -->
 						<div id="search-notice">
 		                    <form name="searchForm" action="/notice/search.do" method="get" id="search-notice-input">
-		                    	<input type="search" name="notice-search" placeholder="검색어 입력"  value=${ noticeSearch }>
+	                    		<!-- 검색 분류 -->
+	                    		<select name="searchCondition">
+									<option value="all" <c:if test="${ searchCondition eq 'all' }">selected</c:if>>전체</option>
+									<option value="title" <c:if test="${ searchCondition eq 'title' }">selected</c:if>>제목</option>
+									<option value="content" <c:if test="${ searchCondition eq 'content' }">selected</c:if>>내용</option>
+								</select>
+		                    	<input type="search" name="searchKeyword" placeholder="검색어 입력" value=${ searchKeyword }>
 		                    	<div id="search-notice-icon">
 			                    	<a href="javascript:void(0)" onclick="getSearchNotice();"><img alt="검색" src="/resources/img/search-icon.png"></a>
 		                    	</div>

@@ -1,43 +1,36 @@
 package kr.co.gaonnuri.notice.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.gaonnuri.notice.domain.Notice;
-import kr.co.gaonnuri.notice.domain.PageData;
 import kr.co.gaonnuri.notice.domain.PageInfo;
 
 public interface NoticeService {
 	
 	/**
-	 * 공지사항 작성 (추가)
+	 * 공지사항 작성 (추가) Service
 	 * @param notice
 	 * @return
 	 */
 	public int insertNotice(Notice notice);
 
 	/**
-	 * 공지사항 수정
+	 * 공지사항 수정 Service
 	 * @param notice
 	 * @return
 	 */
 	public int updateNotice(Notice notice);
 
 	/**
-	 * 공지사항 삭제
+	 * 공지사항 삭제 Service
 	 * @param noticeNo
 	 * @return
 	 */
 	public int deleteNotice(int noticeNo);
-
-	/**
-	 * 공지사항 검색
-	 * @param noticeSubject
-	 * @return 검색 결과 List
-	 */
-	public List<Notice> selectNoticeSearch(String noticeSubject);
 	
 	/**
-	 * 공지사항 번호로 검색 (상세 조회)
+	 * 공지사항 번호로 조회 Service
 	 * @param noticeNo
 	 * @return Notice 객체
 	 */
@@ -55,4 +48,19 @@ public interface NoticeService {
 	 * @return
 	 */
 	public int getListCount();
+
+	/**
+	 * 공지사항 조건에 따라 키워드로 검색 Service
+	 * @param pInfo
+	 * @param paramMap
+	 * @return
+	 */
+	List<Notice> searchNoticesByKeyword(PageInfo pInfo, Map<String, String> paramMap);
+
+	/**
+	 * 공지사항 검색 게시물 전체 갯수 Service
+	 * @param paramMap
+	 * @return
+	 */
+	int getListCount(Map<String, String> paramMap);
 }

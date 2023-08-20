@@ -95,12 +95,20 @@ main {
 	    }
 	    
 	    #search-notice-input {
-	    	width: 218px;
+/* 	    	width: 218px; */
+	    	width: 280px;
 	    	display: flex;
 	    	justify-content: right; 
 	        padding-top: 35px;
 	        border-bottom: solid 2px #002B5B;
 	    }
+	    	
+	    	#search-notice-input > select {
+	    		background-color: #F3F3F3;
+	    		border-style: none;
+	    		margin-right: 10px;
+	    		padding: 0 10px;
+	    	}
 	    
 		    #search-notice-input > input  {
 		    	padding: 8px;
