@@ -1,5 +1,6 @@
 package kr.co.gaonnuri.user.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.hanbok.domain.Hanbok;
 import kr.co.gaonnuri.user.domain.User;
 import kr.co.gaonnuri.user.service.UserService;
 
@@ -201,17 +204,17 @@ public class UserController {
 			User user = service.selectOneById(userId);
 			
 			// 행사 예매 내역
-//			List<Reserve> rList = service.selectAllReservesById(userId);
+			List<Reserve> rList = service.selectAllReservesById(userId);
 			
 			// 한복 대여 내역
-//			List<Hanbok> hList = service.selectAllRentalsById(userId);
+			List<Hanbok> hList = service.selectAllRentalsById(userId);
 			
 			// 나의 질문
 			
 			if(user != null) {
 				model.addAttribute("user", user);
-	//			model.addAttribute("rList", rList);
-	//			model.addAttribute("hList", hList);
+				model.addAttribute("rList", rList);
+				model.addAttribute("hList", hList);
 				return "user/my-info";
 			} else {
 				model.addAttribute("msg", "마이페이지 조회");

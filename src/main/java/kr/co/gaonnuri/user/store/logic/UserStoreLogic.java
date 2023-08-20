@@ -5,9 +5,9 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.hanbok.domain.Hanbok;
 import kr.co.gaonnuri.user.domain.User;
-import kr.co.gaonnuri.user.store.Hanbok;
-import kr.co.gaonnuri.user.store.Reserve;
 import kr.co.gaonnuri.user.store.UserStore;
 
 @Repository

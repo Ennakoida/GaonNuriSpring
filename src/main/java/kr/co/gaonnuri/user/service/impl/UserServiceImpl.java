@@ -6,9 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.hanbok.domain.Hanbok;
 import kr.co.gaonnuri.user.domain.User;
-import kr.co.gaonnuri.user.service.Hanbok;
-import kr.co.gaonnuri.user.service.Reserve;
 import kr.co.gaonnuri.user.service.UserService;
 import kr.co.gaonnuri.user.store.UserStore;
 
