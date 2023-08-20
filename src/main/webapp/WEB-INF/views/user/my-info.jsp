@@ -57,7 +57,7 @@
 								<th>시간</th>
 							</tr>
 							<c:forEach var="reserve" items="${ rList }">
-								<tr>
+								<tr onclick="openReservePopup();">
 									<td>${ reserve.reservePlace }</td>
 									<td>${ reserve.reserveDate }</td>
 									<td>${ reserve.reserveTime }</td>
@@ -74,7 +74,7 @@
 								<th>한복 이름</th>
 							</tr>
 							<c:forEach var="rental" items="${ hList }">
-								<tr>
+								<tr onclick="openRentalPopup();">
 									<td>${ rental.rentalPlace }</td>
 									<td>${ rental.rentalDate }</td>
 									<td>${ rental.rentalHanbok }</td>
@@ -125,5 +125,14 @@
 			}
 		</script>
 
+	    <script>
+		    function openReservePopup() {
+		    	window.open("showReserve.jsp", "행사 예매 내역", "width=800,height=600");
+	        }
+		    
+		    function openRentalPopup() {
+		    	window.open("showRental.jsp", "한복 대여 내역", "width=800,height=600");
+	        }
+    	</script>
 	</body>
 </html>
