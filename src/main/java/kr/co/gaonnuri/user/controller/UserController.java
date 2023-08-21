@@ -287,4 +287,16 @@ public class UserController {
 			return "common/errorMessage";
 		}
 	}
+	
+	// 행사 예매 내역 팝업
+	@RequestMapping(value="/user/popReserve.do", method=RequestMethod.GET)
+	public String popReserve() {
+		return "user/popShowReserve";
+	}
+	
+	// 한복 대여 내역 팝업
+	@RequestMapping(value="/user/popRental.do", method=RequestMethod.GET)
+	public String popRental() {
+		return "user/popShowRental";
+	}
 }
