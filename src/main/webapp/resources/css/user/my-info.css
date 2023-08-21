@@ -163,6 +163,19 @@ main {
 		    background-color: #002B5B;
 		    color: #B5B5B5;
 		}
+		
+		tr:hover{
+			cursor: pointer;
+		    text-decoration: underline;
+		    text-decoration-color: #EA5455;
+		    color: #EA5455;
+		}
+		
+		.table-title:hover {
+			cursor: auto;
+			text-decoration: none;
+		}
+		
 
 		td {
 		    border: 2px solid #bbb;

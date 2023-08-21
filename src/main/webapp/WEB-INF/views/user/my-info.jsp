@@ -51,7 +51,7 @@
 					<h4>행사 예매 내역</h4>
 					<section id="my-reserve">
 						<table>
-							<tr>
+							<tr class="table-title">
 								<th>행사 장소</th>
 								<th>날짜</th>
 								<th>시간</th>
@@ -68,7 +68,7 @@
 					<h4>한복 대여 내역</h4>
 					<section id="my-rental">
 						<table>
-							<tr>
+							<tr class="table-title">
 								<th>OOO 지점</th>
 								<th>대여 일자</th>
 								<th>한복 이름</th>
@@ -86,7 +86,7 @@
 					<section id="my-q">
 						<table>
 							<c:forEach begin="0" end="0">
-								<tr>
+								<tr class="table-title">
 									<th>제목</th>
 									<th>작성일</th>
 								</tr>
