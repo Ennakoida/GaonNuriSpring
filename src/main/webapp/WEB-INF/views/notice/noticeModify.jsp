@@ -16,7 +16,7 @@
                     <div id="colorBox"></div>
                 </section>
                 <section id="notice-modify">
-					<form action="/notice/modify.do" method="post">       
+					<form action="/notice/modify.do" method="post" enctype="multipart/form-data">       
 	         			<input type="hidden" name="noticeNo" value="${ notice.noticeNo }">
 	                	<div id="notice-subject">
 	                		<input type="text" name="notice-subject" placeholder="제목을 입력해주세요." value="${ notice.noticeSubject }">
@@ -25,6 +25,7 @@
 	                		<textarea cols="100" rows="30" name="notice-content" placeholder="내용을 입력해주세요...">${ notice.noticeContent }</textarea>
 	                	</div>
 	                	<div>
+		                	<input type="file" name="uploadFile" id="uploadFile">
 							<input type="submit" value="수정하기">
 	                	</div>
                 	</form>

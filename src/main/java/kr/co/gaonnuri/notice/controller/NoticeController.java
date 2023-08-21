@@ -1,8 +1,15 @@
 package kr.co.gaonnuri.notice.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.gaonnuri.notice.domain.Notice;
@@ -109,7 +117,11 @@ public class NoticeController {
 	
 	// 공지사항 상세 조회 페이지
 	@RequestMapping(value="/notice/detail.do", method=RequestMethod.GET)
-	public String showDetailNotice(@RequestParam("noticeNo") int noticeNo, Model model) {
+	public String showDetailNotice(int noticeNo
+									, String downloadFile
+									, HttpServletRequest request
+									, HttpServletResponse response
+									, Model model) {
 		try {
 			Notice notice = service.selectOneByNo(noticeNo);
 			
@@ -138,9 +150,34 @@ public class NoticeController {
 	@RequestMapping(value="/notice/insert.do", method=RequestMethod.POST)
 	public String InsertNotice(@RequestParam("notice-subject") String noticeSubject
 							   , @RequestParam("notice-content") String noticeContent
+							   , @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
+							   , HttpServletRequest request
 							   , Model model) {
 		try {
-			Notice notice = new Notice(noticeSubject, noticeContent);
+			Notice notice = new Notice();
+			
+			if(!uploadFile.getOriginalFilename().equals("")) {
+				String fileName = uploadFile.getOriginalFilename();
+				String root = request.getSession().getServletContext().getRealPath("resources"); 
+				String saveFolder = root + "\\GN_NoticeFiles"; // 가온누리 공지사항 폴더
+				File folder = new File(saveFolder);
+				if(!folder.exists()) {
+					folder.mkdir();
+				}
+				
+				String savePath = saveFolder + "\\" + fileName;
+				File file = new File(savePath);
+				uploadFile.transferTo(file);
+				
+				long fileLength = uploadFile.getSize();
+				
+				notice.setNoticeFileName(fileName);
+				notice.setNoticeFilePath(savePath);
+				notice.setNoticeFileLength(fileLength);
+			}
+			
+			notice.setNoticeSubject(noticeSubject);
+			notice.setNoticeContent(noticeContent);
 			int result = service.insertNotice(notice);
 			
 			if(result > 0) {
@@ -183,10 +220,37 @@ public class NoticeController {
 	public String modifyNotice(int noticeNo
 							   , @RequestParam("notice-subject") String noticeSubject
 							   , @RequestParam("notice-content") String noticeContent
+							   , @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
+							   , HttpServletRequest request
 							   , RedirectAttributes redirect
 							   , Model model) {
 		try {
-			Notice notice = new Notice(noticeNo, noticeSubject, noticeContent);
+			Notice notice = new Notice();
+			
+			if(!uploadFile.getOriginalFilename().equals("")) {
+				String fileName = uploadFile.getOriginalFilename();
+				String root = request.getSession().getServletContext().getRealPath("resources"); 
+				String saveFolder = root + "\\GN_NoticeFiles"; // 가온누리 공지사항 폴더
+				File folder = new File(saveFolder);
+				if(!folder.exists()) {
+					folder.mkdir();
+				}
+				
+				String savePath = saveFolder + "\\" + fileName;
+				File file = new File(savePath);
+				uploadFile.transferTo(file);
+				
+				long fileLength = uploadFile.getSize();
+				
+				notice.setNoticeFileName(fileName);
+				notice.setNoticeFilePath(savePath);
+				notice.setNoticeFileLength(fileLength);
+			}
+			
+			notice.setNoticeNo(noticeNo);
+			notice.setNoticeSubject(noticeSubject);
+			notice.setNoticeContent(noticeContent);
+			
 			int result = service.updateNotice(notice);
 			
 			if(result > 0) {

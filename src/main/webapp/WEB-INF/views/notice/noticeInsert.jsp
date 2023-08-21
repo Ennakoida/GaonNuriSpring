@@ -16,7 +16,7 @@
                     <div id="colorBox"></div>
                 </section>
                 <section id="notice-insert">
-					<form action="/notice/insert.do" method="post">                
+					<form action="/notice/insert.do" method="post" enctype="multipart/form-data">                
 	                	<div id="notice-subject">
 	                		<input type="text" name="notice-subject" placeholder="제목을 입력해주세요.">
 	                	</div>
@@ -24,8 +24,11 @@
 	                		<textarea cols="100" rows="30" name="notice-content" placeholder="내용을 입력해주세요..."></textarea>
 	                	</div>
 	                	<div>
-							<input type="button" onclick="location.href='/notice/notice.do'" value="목록으로">
-							<input type="submit" value="작성하기">
+		                	<input type="file" name="uploadFile" id="uploadFile">
+		                	<div>
+								<input type="button" onclick="location.href='/notice/notice.do'" value="목록으로">
+								<input type="submit" value="작성하기">
+		                	</div>
 	                	</div>
                 	</form>
                 </section>

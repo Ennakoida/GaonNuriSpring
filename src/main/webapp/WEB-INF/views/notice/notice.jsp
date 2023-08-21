@@ -59,7 +59,11 @@
                         <c:forEach var="notice" items="${ nList }">
 	                        <tr>
 	                        	<td>${ notice.noticeNo }</td>
-	                        	<td onclick="location.href='/notice/detail.do?noticeNo=${ notice.noticeNo }'">${ notice.noticeSubject }</td>
+	                        	<td onclick="location.href='/notice/detail.do?noticeNo=${ notice.noticeNo }'">${ notice.noticeSubject }
+	                        		<c:if test="${ notice.noticeFileName ne null }">
+	                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
+	                        		</c:if>
+	                        	</td>
 	                        	<td>${ notice.noticeDate }</td>
 	                        </tr>
                         </c:forEach>

@@ -9,6 +9,9 @@ public class Notice {
 	private String noticeContent;
 	private Date noticeDate;
 	private Date updateDate;
+	private String noticeFileName;
+	private String noticeFilePath;
+	private long noticeFileLength;
 	private int viewCount;
 	
 	public Notice() {}
@@ -62,11 +65,31 @@ public class Notice {
 	public void setViewCount(int viewCount) {
 		this.viewCount = viewCount;
 	}
-	
+	public String getNoticeFileName() {
+		return noticeFileName;
+	}
+	public void setNoticeFileName(String noticeFileName) {
+		this.noticeFileName = noticeFileName;
+	}
+	public String getNoticeFilePath() {
+		return noticeFilePath;
+	}
+	public void setNoticeFilePath(String noticeFilePath) {
+		this.noticeFilePath = noticeFilePath;
+	}
+	public long getNoticeFileLength() {
+		return noticeFileLength;
+	}
+	public void setNoticeFileLength(long noticeFileLength) {
+		this.noticeFileLength = noticeFileLength;
+	}
+
 	@Override
 	public String toString() {
 		return "공지 [번호=" + noticeNo + ", 제목=" + noticeSubject + ", 내용=" + noticeContent
-				+ ", 작성일=" + noticeDate + ", 수정일=" + updateDate + ", 조회수=" + viewCount + "]";
+				+ ", 작성일=" + noticeDate + ", 수정일=" + updateDate + ", 파일이름=" + noticeFileName
+				+ ", 파일경로=" + noticeFilePath + ", 파일크기=" + noticeFileLength + ", 조회수="
+				+ viewCount + "]";
 	}
 	
 }

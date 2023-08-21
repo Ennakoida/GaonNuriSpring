@@ -91,6 +91,12 @@ main {
 	    }
 	    
 	    #notice-modify div:last-child {
+	    	display: flex;
+	    	justify-content: space-between;
+	    	align-items: center;
+	    }
+	    
+	    #notice-modify div:last-child {
 	    	text-align: right;
 	    	width: 750px;
 	    	margin: 0 auto;
@@ -98,7 +104,7 @@ main {
 	    	padding-bottom: 50px;	
 	    }
 		    
-    	    #notice-modify div:last-child > input {
+    	    #notice-modify div:last-child > input[type=submit] {
 		    	background-color: #002B5B;
 		        color: #F3F3F3;
                 width: 142px;

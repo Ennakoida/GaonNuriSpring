@@ -90,6 +90,14 @@ main {
 	    	padding: 15px;
 	    }
 	    
+	    #notice-insert div:nth-child(3) {
+	    	display: flex;
+	    }
+	    
+	    	#uploadFile {
+	    		padding-top: 15px;
+	    	}
+	    
 	    #notice-insert div:last-child {
 	    	text-align: right;
 	    	width: 750px;
@@ -98,7 +106,7 @@ main {
 	    	padding-bottom: 50px;	
 	    }
 	    
-		    #notice-insert div:last-child > input:first-child {
+		    #notice-insert div:last-child > input:first-child:not(#uploadFile) {
 		    	background-color: #F3F3F3;
 		        color: #002B5B;
                 width: 142px;

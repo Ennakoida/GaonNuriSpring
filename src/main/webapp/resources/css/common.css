@@ -42,7 +42,7 @@ button {
 }
 
 /* input 선택 시 테두리 색 변경 */
-[type]:not([type=submit]):focus, select:focus { 
+[type]:not([type=submit], [type=file]):focus, select:focus { 
     outline: none;
     border: 2px solid #002B5B;
 }
