@@ -15,4 +15,10 @@ public class HanbokStoreLogic implements HanbokStore {
 		return result;
 	}
 
+	@Override
+	public Hanbok selectRentalByNo(SqlSession session, int rentalNo) {
+		Hanbok hanbok = session.selectOne("HanbokMapper.selectRentalByNo", rentalNo);
+		return hanbok;
+	}
+
 }

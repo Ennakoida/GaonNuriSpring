@@ -6,22 +6,28 @@
 <mapper namespace="ReserveMapper">
 	
 	<resultMap type="kr.co.gaonnuri.event.reservation.domain.Reserve" id="reserveResultMap">
-		<result property="reserveUser"  column="RESERVE_USER"/>
-		<result property="reservePlace"  column="RESERVE_PLACE"/>
-		<result property="reserveDate"   column="RESERVE_DATE"/>
-		<result property="reserveTime"   column="RESERVE_TIME"/>
-		<result property="reservePeople" column="RESERVE_PEOPLE"/>
-		<result property="reserveName"   column="RESERVE_NAME"/>
-		<result property="reservePhone"  column="RESERVE_PHONE"/>
-		<result property="reserveEmail"  column="RESERVE_EMAIL"/>
+		<id		property="reserveNo"  		    column="RESERVE_NO"/>
+		<result property="reserveUser"  		column="RESERVE_USER"/>
+		<result property="reservePlace"  		column="RESERVE_PLACE"/>
+		<result property="reserveDate"   		column="RESERVE_DATE"/>
+		<result property="reserveTime"   		column="RESERVE_TIME"/>
+		<result property="reservePeople" 		column="RESERVE_PEOPLE"/>
+		<result property="reserveName"   		column="RESERVE_NAME"/>
+		<result property="reservePhone" 		column="RESERVE_PHONE"/>
+		<result property="reserveEmail"  		column="RESERVE_EMAIL"/>
+		<result property="makeReservationDate"  column="MAKE_RESERVATION_DATE"/>
 	</resultMap>
 
 	<insert id="insertReserve">
-		INSERT INTO RESERVE_TBL VALUES(#{ reserveUser }, #{ reservePlace }, #{ reserveDate }, #{ reserveTime }, #{ reservePeople }, #{ reserveName }, #{ reservePhone }, #{ reserveEmail, jdbcType=VARCHAR })
+		INSERT INTO RESERVE_TBL VALUES(SEQ_RESERVENO.NEXTVAL, #{ reserveUser }, #{ reservePlace }, #{ reserveDate }, #{ reserveTime }, #{ reservePeople }, #{ reserveName }, #{ reservePhone }, #{ reserveEmail, jdbcType=VARCHAR }, DEFAULT)
 	</insert>
 	
 	<select id="selectAllReservesById" resultMap="reserveResultMap">
-		SELECT * FROM RESERVE_TBL WHERE RESERVE_USER = #{ userId }
+		SELECT * FROM RESERVE_TBL WHERE RESERVE_USER = #{ userId } ORDER BY RESERVE_NO DESC
+	</select>
+	
+	<select id="selectReserveByNo" resultMap="reserveResultMap">
+		SELECT * FROM RESERVE_TBL WHERE RESERVE_NO = #{ reserveNo }
 	</select>
 
 </mapper>

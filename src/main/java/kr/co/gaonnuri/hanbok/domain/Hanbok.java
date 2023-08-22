@@ -1,8 +1,10 @@
 package kr.co.gaonnuri.hanbok.domain;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Hanbok {
+	private int rentalNo;
 	private String rentalUser;
 	private String rentalPlace;
 	private Date rentalDate;
@@ -12,6 +14,8 @@ public class Hanbok {
 	private String rentalPantsColor;
 	private String rentalPantsSize;
 	private String rentalAccessories;
+	private int rentalPrice;
+	private Timestamp makeRentalDate;
 	
 	public Hanbok() {	}
 	
@@ -21,8 +25,9 @@ public class Hanbok {
 		this.rentalDate = rentalDate;
 	}
 	
-	public Hanbok(String rentalUser, String rentalPlace, Date rentalDate, String rentalHanbok, String rentalTopColor, String rentalTopSize,
-			String rentalPantsColor, String rentalPantsSize, String rentalAccessories) {
+	public Hanbok(String rentalUser, String rentalPlace, Date rentalDate, String rentalHanbok, String rentalTopColor,
+			String rentalTopSize, String rentalPantsColor, String rentalPantsSize, String rentalAccessories,
+			int rentalPrice) {
 		super();
 		this.rentalUser = rentalUser;
 		this.rentalPlace = rentalPlace;
@@ -33,16 +38,21 @@ public class Hanbok {
 		this.rentalPantsColor = rentalPantsColor;
 		this.rentalPantsSize = rentalPantsSize;
 		this.rentalAccessories = rentalAccessories;
+		this.rentalPrice = rentalPrice;
 	}
 
+	public int getRentalNo() {
+		return rentalNo;
+	}
+	public void setRentalNo(int rentalNo) {
+		this.rentalNo = rentalNo;
+	}
 	public String getRentalUser() {
 		return rentalUser;
 	}
-
 	public void setRentalUser(String rentalUser) {
 		this.rentalUser = rentalUser;
 	}
-
 	public String getRentalPlace() {
 		return rentalPlace;
 	}
@@ -91,11 +101,25 @@ public class Hanbok {
 	public void setRentalAccessories(String rentalAccessories) {
 		this.rentalAccessories = rentalAccessories;
 	}
+	public int getRentalPrice() {
+		return rentalPrice;
+	}
+	public void setRentalPrice(int rentalPrice) {
+		this.rentalPrice = rentalPrice;
+	}
+	public Timestamp getMakeRentalDate() {
+		return makeRentalDate;
+	}
+	public void setMakeRentalDate(Timestamp makeRentalDate) {
+		this.makeRentalDate = makeRentalDate;
+	}
+
 	@Override
 	public String toString() {
-		return "한복대여 [지점=" + rentalPlace + ", 날짜=" + rentalDate + ", 이름=" + rentalHanbok
-				+ ", 상의색상=" + rentalTopColor + ", 상의사이즈=" + rentalTopSize + ", 하의색상="
-				+ rentalPantsColor + ", 하의사이즈=" + rentalPantsSize + ", 장신구=" + rentalAccessories
-				+ "]";
+		return "한복대여 [번호=" + rentalNo + ", 아이디=" + rentalUser + ", 지점=" + rentalPlace
+				+ ", 날짜=" + rentalDate + ", 한복이름=" + rentalHanbok + ", 상의색상=" + rentalTopColor
+				+ ", 상의사이즈=" + rentalTopSize + ", 하의색상=" + rentalPantsColor + ", 하의사이즈="
+				+ rentalPantsSize + ", 장신구=" + rentalAccessories + ", 가격=" + rentalPrice
+				+ ", 대여한날짜=" + makeRentalDate + "]";
 	}
 }

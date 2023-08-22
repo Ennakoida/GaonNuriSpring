@@ -6,22 +6,29 @@
 <mapper namespace="HanbokMapper">
 
 	<resultMap type="kr.co.gaonnuri.hanbok.domain.Hanbok" id="hanbokResultMap">
-		<result property="rentalUser"  column="RENTAL_USER"/>
-		<result property="rentalPlace"  column="RENTAL_PLACE"/>
-		<result property="rentalDate"   column="RENTAL_DATE"/>
-		<result property="rentalHanbok"   column="RENTAL_HANBOK"/>
-		<result property="rentalTopColor" column="RENTAL_TOP_COLOR"/>
-		<result property="rentalTopSize"   column="RENTAL_TOP_SIZE"/>
+		<id		property="rentalNo"  		 column="RENTAL_NO"/>
+		<result property="rentalUser"  		 column="RENTAL_USER"/>
+		<result property="rentalPlace"  	 column="RENTAL_PLACE"/>
+		<result property="rentalDate"   	 column="RENTAL_DATE"/>
+		<result property="rentalHanbok"      column="RENTAL_HANBOK"/>
+		<result property="rentalTopColor"    column="RENTAL_TOP_COLOR"/>
+		<result property="rentalTopSize"     column="RENTAL_TOP_SIZE"/>
 		<result property="rentalPantsColor"  column="RENTAL_PANTS_COLOR"/>
-		<result property="rentalPantsSize"  column="RENTAL_PANTS_SIZE"/>
-		<result property="rentalAccessories"  column="RENTAL_ACCESSORIES"/>
+		<result property="rentalPantsSize"   column="RENTAL_PANTS_SIZE"/>
+		<result property="rentalAccessories" column="RENTAL_ACCESSORIES"/>
+		<result property="rentalPrice" 		 column="RENTAL_PRICE"/>
+		<result property="makeRentalDate"    column="MAKE_RENTAL_DATE"/>
 	</resultMap>
 	
 	<insert id="insertHanbok">
-		INSERT INTO RENTAL_TBL VALUES(#{ rentalUser }, #{ rentalPlace }, #{ rentalDate }, #{ rentalHanbok }, #{ rentalTopColor }, #{ rentalTopSize }, #{ rentalPantsColor }, #{ rentalPantsSize }, #{ rentalAccessories, jdbcType=VARCHAR })
+		INSERT INTO RENTAL_TBL VALUES(SEQ_RENTALNO.NEXTVAL, #{ rentalUser }, #{ rentalPlace }, #{ rentalDate }, #{ rentalHanbok }, #{ rentalTopColor }, #{ rentalTopSize }, #{ rentalPantsColor }, #{ rentalPantsSize }, #{ rentalAccessories, jdbcType=VARCHAR }, #{ rentalPrice }, DEFAULT)
 	</insert>
 	
 	<select id="selectAllRentalsById" resultMap="hanbokResultMap">
-		SELECT * FROM RENTAL_TBL WHERE RENTAL_USER = #{ userId }
+		SELECT * FROM RENTAL_TBL WHERE RENTAL_USER = #{ userId } ORDER BY RENTAL_NO DESC
+	</select>
+	
+	<select id="selectRentalByNo" resultMap="hanbokResultMap">
+		SELECT * FROM RENTAL_TBL WHERE RENTAL_NO = #{ rentalNo }
 	</select>
 </mapper>

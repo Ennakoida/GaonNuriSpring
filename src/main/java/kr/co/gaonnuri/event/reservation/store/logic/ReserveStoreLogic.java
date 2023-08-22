@@ -15,4 +15,10 @@ public class ReserveStoreLogic implements ReserveStore {
 		return result;
 	}
 
+	@Override
+	public Reserve selectReserveByNo(SqlSession session, int reserveNo) {
+		Reserve reserve = session.selectOne("ReserveMapper.selectReserveByNo", reserveNo);
+		return reserve;
+	}
+
 }

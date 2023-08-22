@@ -1,5 +1,7 @@
 package kr.co.gaonnuri.event.reservation.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +22,11 @@ public class ReserveServiceImpl implements ReserveService{
 	public int insertReserve(Reserve reserve) {
 		int result = rStore.insertReserve(session, reserve);
 		return result;
+	}
+
+	@Override
+	public Reserve selectReserveByNo(int reserveNo) {
+		Reserve reserve = rStore.selectReserveByNo(session, reserveNo);
+		return reserve;
 	}
 }

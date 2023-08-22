@@ -22,4 +22,10 @@ public class HanbokServiceImpl implements HanbokService {
 		return result;
 	}
 
+	@Override
+	public Hanbok selectRentalByNo(int rentalNo) {
+		Hanbok hanbok = hStore.selectRentalByNo(session, rentalNo);
+		return hanbok;
+	}
+
 }

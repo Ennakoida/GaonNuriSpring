@@ -1,8 +1,10 @@
 package kr.co.gaonnuri.event.reservation.domain;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Reserve {
+	private int reserveNo;
 	private String reserveUser;
 	private String reservePlace;
 	private Date reserveDate;
@@ -11,6 +13,7 @@ public class Reserve {
 	private String reserveName;
 	private String reservePhone;
 	private String reserveEmail;
+	private Timestamp makeReservationDate;
 	
 	public Reserve() {	}
 	
@@ -27,14 +30,18 @@ public class Reserve {
 		this.reserveEmail = reserveEmail;
 	}
 
+	public int getReserveNo() {
+		return reserveNo;
+	}
+	public void setReserveNo(int reserveNo) {
+		this.reserveNo = reserveNo;
+	}
 	public String getReserveUser() {
 		return reserveUser;
 	}
-
 	public void setReserveUser(String reserveUser) {
 		this.reserveUser = reserveUser;
 	}
-
 	public String getReservePlace() {
 		return reservePlace;
 	}
@@ -77,12 +84,19 @@ public class Reserve {
 	public void setReserveEmail(String reserveEmail) {
 		this.reserveEmail = reserveEmail;
 	}
-	
+	public Timestamp getMakeReservationDate() {
+		return makeReservationDate;
+	}
+	public void setMakeReservationDate(Timestamp makeReservationDate) {
+		this.makeReservationDate = makeReservationDate;
+	}
+
 	@Override
 	public String toString() {
-		return "행사예매 [행사=" + reservePlace + ", 날짜=" + reserveDate + ", 시간=" + reserveTime
+		return "행사예매 [번호=" + reserveNo + ", 행사=" + reservePlace + ", 날짜=" + reserveDate + ", 시간=" + reserveTime
 				+ ", 인원=" + reservePeople + ",  예매자이름=" + reserveName + ", 예매자전화번호=" 
-				+ reservePhone + ", 예매자이메일=" + reserveEmail + "]";
+				+ reservePhone + ", 예매자이메일=" + reserveEmail + ", 예매한날짜=" + makeReservationDate 
+				+ "]";
 	}
 	
 }

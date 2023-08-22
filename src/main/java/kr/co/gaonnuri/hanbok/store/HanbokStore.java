@@ -13,5 +13,13 @@ public interface HanbokStore {
 	 * @return
 	 */
 	int insertHanbok(SqlSession session, Hanbok hanbok);
+
+	/**
+	 * 대여 번호로 대여 내역 조회 Store
+	 * @param session
+	 * @param rentalNo
+	 * @return
+	 */
+	Hanbok selectRentalByNo(SqlSession session, int rentalNo);
 	
 }

@@ -70,7 +70,8 @@ public class HanbokController {
 		try {
 			java.sql.Date rentalDate = new java.sql.Date(rentalUtilDate.getTime());
 			String rentalHanbok = "[ 여성용 ] 여름 한복 세트";
-			Hanbok hanbok = new Hanbok(rentalUser, rentalPlace, rentalDate, rentalHanbok, rentalTopColor, rentalTopSize, rentalPantsColor, rentalPantsSize, rentalAccessories);
+			int rentalPrice = 89000;
+			Hanbok hanbok = new Hanbok(rentalUser, rentalPlace, rentalDate, rentalHanbok, rentalTopColor, rentalTopSize, rentalPantsColor, rentalPantsSize, rentalAccessories, rentalPrice);
 			int result = service.insertHanbok(hanbok);
 			
 			if(result > 0) {

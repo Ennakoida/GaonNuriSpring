@@ -11,4 +11,11 @@ public interface ReserveService {
 	 */
 	int insertReserve(Reserve reserve);
 
+	/**
+	 * 예매 번호로 예매 내역 조회 Service
+	 * @param reserveNo
+	 * @return
+	 */
+	Reserve selectReserveByNo(int reserveNo);
+
 }

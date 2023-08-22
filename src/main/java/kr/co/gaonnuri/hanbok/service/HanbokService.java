@@ -11,4 +11,11 @@ public interface HanbokService {
 	 */
 	int insertHanbok(Hanbok hanbok);
 
+	/**
+	 * 대여 번호로 대여 내역 조회 Service
+	 * @param rentalNo
+	 * @return
+	 */
+	Hanbok selectRentalByNo(int rentalNo);
+
 }

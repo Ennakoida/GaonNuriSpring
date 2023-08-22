@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.event.reservation.service.ReserveService;
 import kr.co.gaonnuri.hanbok.domain.Hanbok;
+import kr.co.gaonnuri.hanbok.service.HanbokService;
 import kr.co.gaonnuri.user.domain.User;
 import kr.co.gaonnuri.user.service.UserService;
 
@@ -23,6 +25,10 @@ public class UserController {
 
 	@Autowired
 	private UserService service;
+	@Autowired
+	private ReserveService rService;
+	@Autowired
+	private HanbokService hService;
 	
 	// 회원가입 페이지 
 	@RequestMapping(value="/user/enroll.do", method=RequestMethod.GET)
@@ -205,6 +211,7 @@ public class UserController {
 			
 			// 행사 예매 내역
 			List<Reserve> rList = service.selectAllReservesById(userId);
+			System.out.println(rList.toString());
 			
 			// 한복 대여 내역
 			List<Hanbok> hList = service.selectAllRentalsById(userId);
@@ -290,13 +297,45 @@ public class UserController {
 	
 	// 행사 예매 내역 팝업
 	@RequestMapping(value="/user/popReserve.do", method=RequestMethod.GET)
-	public String popReserve() {
-		return "user/popShowReserve";
+	public String popReserve(String userId
+							, int reserveNo
+							, Model model) {
+		try {
+			Reserve reserve = rService.selectReserveByNo(reserveNo);
+			if(reserve != null) {
+				model.addAttribute("reserve", reserve);
+				return "user/popShowReserve";
+			} else {
+				model.addAttribute("msg", "행사 예매 내역 상세 조회");
+				model.addAttribute("url", "/user/myInfo.do?userId=" + userId);
+				return "common/serviceFailed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
 	}
 	
 	// 한복 대여 내역 팝업
 	@RequestMapping(value="/user/popRental.do", method=RequestMethod.GET)
-	public String popRental() {
-		return "user/popShowRental";
+	public String popRental(String userId
+							, int rentalNo
+							, Model model) {
+		try {
+			Hanbok hanbok = hService.selectRentalByNo(rentalNo);
+			if(hanbok != null) {
+				model.addAttribute("hanbok", hanbok);
+				return "user/popShowRental";
+			} else {
+				model.addAttribute("msg", "한복 대여 내역 상세 조회");
+				model.addAttribute("url", "/user/myInfo.do?userId=" + userId);
+				return "common/serviceFailed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
 	}
 }
