@@ -1,9 +1,8 @@
 package kr.co.gaonnuri.notice.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +44,9 @@ public class NoticeController {
 				model.addAttribute("pInfo", pInfo);
 				return "notice/notice";
 			} else {
-				return "redirect:/notice/noticeNone.jsp";
+				model.addAttribute("nList", nList);
+				model.addAttribute("pInfo", pInfo);
+				return "notice/notice";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,7 +98,9 @@ public class NoticeController {
 				model.addAttribute("sList", searchList);
 				return "notice/searchNotice";
 			} else {
-				return "notice/noticeNone";
+				model.addAttribute("sList", searchList);
+				model.addAttribute("pInfo", pInfo);
+				return "notice/searchNotice";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -157,21 +161,15 @@ public class NoticeController {
 			Notice notice = new Notice();
 			
 			if(!uploadFile.getOriginalFilename().equals("")) {
-				String fileName = uploadFile.getOriginalFilename();
-				String root = request.getSession().getServletContext().getRealPath("resources"); 
-				String saveFolder = root + "\\GN_NoticeFiles"; // 가온누리 공지사항 폴더
-				File folder = new File(saveFolder);
-				if(!folder.exists()) {
-					folder.mkdir();
-				}
+				Map<String , Object> nMap = this.saveFile(uploadFile, request);
 				
-				String savePath = saveFolder + "\\" + fileName;
-				File file = new File(savePath);
-				uploadFile.transferTo(file);
-				
-				long fileLength = uploadFile.getSize();
+				String fileName = (String)nMap.get("fileName"); 
+				String fileRename = (String)nMap.get("fileRename");
+				String savePath = (String)nMap.get("filePath");
+				long fileLength = (long)nMap.get("fileLength");
 				
 				notice.setNoticeFileName(fileName);
+				notice.setNoticeFileRename(fileRename);
 				notice.setNoticeFilePath(savePath);
 				notice.setNoticeFileLength(fileLength);
 			}
@@ -220,36 +218,31 @@ public class NoticeController {
 	public String modifyNotice(int noticeNo
 							   , @RequestParam("notice-subject") String noticeSubject
 							   , @RequestParam("notice-content") String noticeContent
+							   , @ModelAttribute Notice notice
 							   , @RequestParam(value="uploadFile", required=false) MultipartFile uploadFile
 							   , HttpServletRequest request
 							   , RedirectAttributes redirect
 							   , Model model) {
 		try {
-			Notice notice = new Notice();
-			
 			if(!uploadFile.getOriginalFilename().equals("")) {
-				String fileName = uploadFile.getOriginalFilename();
-				String root = request.getSession().getServletContext().getRealPath("resources"); 
-				String saveFolder = root + "\\GN_NoticeFiles"; // 가온누리 공지사항 폴더
-				File folder = new File(saveFolder);
-				if(!folder.exists()) {
-					folder.mkdir();
+				String fileRename = notice.getNoticeFileRename();
+				if(fileRename != null) {
+					this.deleteFile(request, fileRename);
 				}
+				Map<String, Object> infoMap = this.saveFile(uploadFile, request);
+				String noticeFilename = (String)infoMap.get("fileName");
+				String noticeFileRename = (String)infoMap.get("fileRename");
+				String noticeFilePath = (String)infoMap.get("filePath");
+				long noticeFileLength = (long)infoMap.get("fileLength");
 				
-				String savePath = saveFolder + "\\" + fileName;
-				File file = new File(savePath);
-				uploadFile.transferTo(file);
-				
-				long fileLength = uploadFile.getSize();
-				
-				notice.setNoticeFileName(fileName);
-				notice.setNoticeFilePath(savePath);
-				notice.setNoticeFileLength(fileLength);
+				notice.setNoticeFileName(noticeFilename);
+				notice.setNoticeFileRename(noticeFileRename);
+				notice.setNoticeFilePath(noticeFilePath);
+				notice.setNoticeFileLength(noticeFileLength);
 			}
 			
-			notice.setNoticeNo(noticeNo);
 			notice.setNoticeSubject(noticeSubject);
-			notice.setNoticeContent(noticeContent);
+			notice.setNoticeContent(noticeContent);		
 			
 			int result = service.updateNotice(notice);
 			
@@ -273,12 +266,14 @@ public class NoticeController {
 	
 	// 공지사항 삭제 페이지
 	@RequestMapping(value="/notice/delete.do", method=RequestMethod.GET)
-	public String deleteNotice(int noticeNo, Model model) {
+	public String deleteNotice(int noticeNo
+								, HttpServletRequest request
+								, Model model) {
 		try {
+			Notice notice = service.selectOneByNo(noticeNo);
 			int result = service.deleteNotice(noticeNo);
-			if(result > 0)
-			{
-				//성공시 목록으로 이동
+			if(result > 0) {
+				this.deleteFile(request, notice.getNoticeFileRename());
 				return "redirect:/notice/notice.do";
 			} else {
 				model.addAttribute("msg", "공지사항 삭제");
@@ -289,6 +284,46 @@ public class NoticeController {
 			e.printStackTrace();
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorMessage";
+		}
+	}
+	
+	// 공지사항 첨부파일 처리 메소드
+	public Map<String, Object> saveFile(MultipartFile uploadFile, HttpServletRequest request) throws Exception {
+		Map<String, Object> infoMap = new HashMap<String, Object>();
+		
+		String fileName = uploadFile.getOriginalFilename();
+		
+		String root = request.getSession().getServletContext().getRealPath("resources"); 
+		String saveFolder = root + "\\GN_NoticeFiles"; // 가온누리 공지사항 폴더
+		File folder = new File(saveFolder);
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); // 나중에 SS랑 ss 비교
+		String strResult = sdf.format(new Date(System.currentTimeMillis()));
+		
+		String ext = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자명 추출 (=png) // . 을 포함하지 않고 자르기 위해 +1
+		String fileRename = "N" + strResult + "." + ext; // 랜덤한 수를 이용한 중복X 파일 생성
+		String savePath = saveFolder + "\\" + fileRename;
+		File file = new File(savePath);
+		
+		uploadFile.transferTo(file);
+		
+		long fileLength = uploadFile.getSize();
+		infoMap.put("fileName", fileName);
+		infoMap.put("fileRename", fileRename);
+		infoMap.put("filePath", savePath);
+		infoMap.put("fileLength", fileLength);
+		return infoMap;
+	}
+
+	private void deleteFile(HttpServletRequest request, String fileName) {
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String delFilepath = root + "\\GN_NoticeFiles\\" + fileName;
+		File file = new File(delFilepath);
+		if(file.exists()) {
+			file.delete();
 		}
 	}
 }

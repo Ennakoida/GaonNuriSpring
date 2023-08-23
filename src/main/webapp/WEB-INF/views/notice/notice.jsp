@@ -56,57 +56,67 @@
                             <th>공지사항</th>
                             <th>작성일</th>
                         </tr>
-                        <c:forEach var="notice" items="${ nList }">
-	                        <tr>
-	                        	<td>${ notice.noticeNo }</td>
-	                        	<td onclick="location.href='/notice/detail.do?noticeNo=${ notice.noticeNo }'">${ notice.noticeSubject }
-	                        		<c:if test="${ notice.noticeFileName ne null }">
-	                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
-	                        		</c:if>
-	                        	</td>
-	                        	<td>${ notice.noticeDate }</td>
-	                        </tr>
-                        </c:forEach>
+                        <!-- 공지사항 목록이 존재하지 않을 때 -->
+                        <c:if test="${ empty nList }">
+                        	<tr>
+                        		<td colspan="3" id="notice-none">목록이 존재하지 않습니다.</td>
+                       		</tr>
+                        </c:if>
+                        <!-- 공지사항 목록이 존재할 때 -->
+                        <c:if test="${ !empty nList }">
+                        	<!-- 공지사항 목록 -->
+	                        <c:forEach var="notice" items="${ nList }">
+		                        <tr>
+		                        	<td>${ notice.noticeNo }</td>
+		                        	<td onclick="location.href='/notice/detail.do?noticeNo=${ notice.noticeNo }'">${ notice.noticeSubject }
+		                        		<c:if test="${ notice.noticeFileName ne null }">
+		                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
+		                        		</c:if>
+		                        	</td>
+		                        	<td>${ notice.noticeDate }</td>
+		                        </tr>
+	                        </c:forEach>  
+	                        
+	                        <!-- 페이지 전환 버튼  -->
+		                    <ul id="page">
+		                    	<!-- 이전 -->
+								<c:url var="prevPageUrl" value="/notice/notice.do">
+									<c:param name="page" value="${ pInfo.startNavi - 1 }"></c:param>
+								</c:url>
+								<c:if test="${ pInfo.startNavi ne 1 }">
+									<li style="cursor: pointer;" onclick="location.href='${ prevPageUrl }'"><</li>
+								</c:if>
+								<c:if test="${ pInfo.startNavi eq 1 }">
+									<li><</li>
+								</c:if>
+								
+								<!-- 페이징 -->
+								<c:forEach begin="${ pInfo.startNavi }" end="${ pInfo.endNavi }" var="p">
+									<c:url var="pageUrl" value="/notice/notice.do">
+										<c:param name="page" value="${ p }"></c:param>
+									</c:url>
+									
+									<c:if test="${ pInfo.currentPage ne p }">
+										<li onclick="location.href='${ pageUrl }'">${ p }</li>
+									</c:if>
+									<c:if test="${ pInfo.currentPage eq p }">
+										<li style="color: #EA5455; font-weight: bold;" onclick="location.href='${ pageUrl }'">${ p }</li>
+									</c:if>
+								</c:forEach>
+								
+								<!-- 다음 -->
+								<c:url var="nextPageUrl" value="/notice/notice.do">
+									<c:param name="page" value="${ pInfo.endNavi + 1 }"></c:param>
+								</c:url>
+								<c:if test="${ pInfo.endNavi ne pInfo.naviTotalCount }">
+									<li style="cursor: pointer;" onclick="location.href='${ nextPageUrl }'">></li>
+								</c:if>
+								<c:if test="${ pInfo.endNavi eq pInfo.naviTotalCount }">
+									<li>></li>
+								</c:if>
+		                    </ul>                      	
+                        </c:if>
                     </table>
-                    
-                    <!-- 페이지 전환 버튼  -->
-                    <ul id="page">
-                    	<!-- 이전 -->
-						<c:url var="prevPageUrl" value="/notice/notice.do">
-							<c:param name="page" value="${ pInfo.startNavi - 1 }"></c:param>
-						</c:url>
-						<c:if test="${ pInfo.startNavi ne 1 }">
-							<li style="cursor: pointer;" onclick="location.href='${ prevPageUrl }'"><</li>
-						</c:if>
-						<c:if test="${ pInfo.startNavi eq 1 }">
-							<li><</li>
-						</c:if>
-						
-						<!-- 페이징 -->
-						<c:forEach begin="${ pInfo.startNavi }" end="${ pInfo.endNavi }" var="p">
-							<c:url var="pageUrl" value="/notice/notice.do">
-								<c:param name="page" value="${ p }"></c:param>
-							</c:url>
-							
-							<c:if test="${ pInfo.currentPage ne p }">
-								<li onclick="location.href='${ pageUrl }'">${ p }</li>
-							</c:if>
-							<c:if test="${ pInfo.currentPage eq p }">
-								<li style="color: #EA5455; font-weight: bold;" onclick="location.href='${ pageUrl }'">${ p }</li>
-							</c:if>
-						</c:forEach>
-						
-						<!-- 다음 -->
-						<c:url var="nextPageUrl" value="/notice/notice.do">
-							<c:param name="page" value="${ pInfo.endNavi + 1 }"></c:param>
-						</c:url>
-						<c:if test="${ pInfo.endNavi ne pInfo.naviTotalCount }">
-							<li style="cursor: pointer;" onclick="location.href='${ nextPageUrl }'">></li>
-						</c:if>
-						<c:if test="${ pInfo.endNavi eq pInfo.naviTotalCount }">
-							<li>></li>
-						</c:if>
-                    </ul>
                 </section>
             </main>
             <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

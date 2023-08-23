@@ -18,6 +18,10 @@
                 <section id="notice-modify">
 					<form action="/notice/modify.do" method="post" enctype="multipart/form-data">       
 	         			<input type="hidden" name="noticeNo" value="${ notice.noticeNo }">
+	         			<input type="hidden" name="noticeFileName" value="${ notice.noticeFileName }">
+						<input type="hidden" name="noticeFileRename" value="${ notice.noticeFileRename }">
+						<input type="hidden" name="noticeFilePath" value="${ notice.noticeFilePath }">
+						<input type="hidden" name="noticeFileLength" value="${ notice.noticeFileLength }">
 	                	<div id="notice-subject">
 	                		<input type="text" name="notice-subject" placeholder="제목을 입력해주세요." value="${ notice.noticeSubject }">
 	                	</div>

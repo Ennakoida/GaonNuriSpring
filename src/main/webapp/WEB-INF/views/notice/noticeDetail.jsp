@@ -45,7 +45,7 @@
 						</tr>
 						<c:if test="${ notice.noticeFileName ne null }">
 							<tr>
-								<td colspan="4" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ notice.noticeFileName }" download style="color:#979797;">${ notice.noticeFileName }</a></td>
+								<td colspan="4" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ notice.noticeFileRename }" download style="color:#979797;">${ notice.noticeFileName }</a></td>
 							</tr>						
 						</c:if>
 					</table>

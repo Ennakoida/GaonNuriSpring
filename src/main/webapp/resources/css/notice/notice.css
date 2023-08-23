@@ -189,11 +189,9 @@ main {
 	/* 비어있는 공지 */
 	#notice-none {
 		height: 470px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
 		font-family: 'Chosunilbo_myungjo', sans-serif, serif;
     	font-size: 1.2em;
 	    color: #B5B5B5;
+	    font-weight: bold;
 	}
         

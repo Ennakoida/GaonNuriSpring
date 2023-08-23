@@ -36,7 +36,7 @@
                                         <option value="종묘">종묘</option>
                                 </select>
                                 <br>
-                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" required>
+                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="2023-08-12" max="2023-08-25" required>
                                 <br>
                                 <label for="select-time">시간 선택</label><br>
                                 <select name="select-time" id="select-time" required>
