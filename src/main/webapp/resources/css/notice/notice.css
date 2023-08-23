@@ -7,20 +7,30 @@ th {
     color: #B5B5B5;
 }
 
+th:first-child {
+    width: 140px;
+}
+
+th:nth-child(2){
+    width: 800px;
+}
+
+th:last-child {
+    width: 210px;
+}
+
 td {
     border: 2px solid #bbb;
     height: 40px;
 }
 
 td:first-child {
-    width: 140px;
     color: #002B5B;
     font-weight: bold;
     font-size: 0.9em;
 }
 
 td:nth-child(2){
-    width: 800px;
     text-align: left;
     padding-left: 20px;
     cursor: pointer;
@@ -43,7 +53,6 @@ td:nth-child(2):hover {
 }
 
 td:last-child {
-    width: 210px;
     color: #a0a0a0;
     font-size: 0.9em;
 }

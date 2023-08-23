@@ -98,6 +98,8 @@ public class NoticeController {
 				model.addAttribute("sList", searchList);
 				return "notice/searchNotice";
 			} else {
+				model.addAttribute("searchCondition", searchCondition);
+				model.addAttribute("searchKeyword", searchKeyword);
 				model.addAttribute("sList", searchList);
 				model.addAttribute("pInfo", pInfo);
 				return "notice/searchNotice";
@@ -107,16 +109,6 @@ public class NoticeController {
 			model.addAttribute("msg", e.getMessage());
 			return "common/errorMessage";
 		}
-	}
-	
-	// 공지사항이 존재하지 않을 때 페이지
-	@RequestMapping(value="/notice/none.do", method=RequestMethod.GET)
-	public String showSearchNotice(@RequestParam("searchCondition") String searchCondition
-			 					   , @RequestParam(value="searchKeyword", required=false) String searchKeyword 
-			 					   , Model model) {
-		model.addAttribute("searchCondition", searchCondition);
-		model.addAttribute("searchKeyword", searchKeyword);
-		return "notice/noticeNone";
 	}
 	
 	// 공지사항 상세 조회 페이지
