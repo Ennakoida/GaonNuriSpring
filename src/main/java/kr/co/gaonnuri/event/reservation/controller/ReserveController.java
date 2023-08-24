@@ -44,6 +44,15 @@ public class ReserveController {
 		}
 	}
 	
+	@RequestMapping(value="/event/rInfoCheck.do", method=RequestMethod.GET)
+	public String checkReservationInfo(Model model) {
+		
+		model.addAttribute("dataReserveStartDate", "2023-08-12");
+		model.addAttribute("dataReserveEndDate", "2023-08-25");
+		model.addAttribute("dataReserveTime", "18 : 40");
+		return "event/reservation";
+	}
+	
 	// 행사 예매 기능
 	@RequestMapping(value="/event/reservation.do", method=RequestMethod.POST)
 	public String makeReservation(@RequestParam("userId") String reserveUser // 로그인한 사용자 아이디

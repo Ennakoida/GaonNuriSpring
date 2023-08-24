@@ -35,14 +35,31 @@
                                         <option value="창덕궁">창덕궁</option>
                                         <option value="종묘">종묘</option>
                                 </select>
+<!--                                 <select name="select-place" id="select-place" onchange="selectPlace();" required> -->
+<!--                                     <option value="" disabled selected hidden>행사를 선택해 주세요.</option> -->
+<!--                                         <option value="cgg">궁궐 일상모습 재현 및 체험</option> -->
+<!--                                         <option value="cdg-1">달빛기행 1차</option> -->
+<!--                                         <option value="cdg-2">달빛기행 2차</option> -->
+<!--                                         <option value="jm-1">묘현례 1차</option> -->
+<!--                                         <option value="jm-2">묘현례 2차</option> -->
+<!--                                         <option value="dsg">밤의 석조전</option> -->
+<!--                                         <option value="gbg-1">별빛야행 1차</option> -->
+<!--                                         <option value="gbg-2">별빛야행 2차</option> -->
+<!--                                 </select> -->
                                 <br>
-                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="2023-08-12" max="2023-08-25" required>
+<!--                                 <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="2023-08-12" max="2023-08-25" required> -->
+<%--                                 <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="${ rData.dataReserveStartDate }" max="${ rData.dataReserveEndDate }" required> --%>
+                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="${ dataReserveStartDate }" max="${ dataReserveEndDate }" required>
                                 <br>
                                 <label for="select-time">시간 선택</label><br>
                                 <select name="select-time" id="select-time" required>
                                     <option value="" disabled selected hidden>방문 시간을 선택해 주세요.</option>
-                                        <option value="18 : 40">18 : 40</option>
-                                        <option value="19 : 40">19 : 40</option>
+                                    	<option>${dataReserveTime }</option>
+<!--                                    		<option value="18 : 40">18 : 40</option> -->
+<!--                                     	<option value="19 : 40">19 : 40</option> -->
+<%--                                     	<c:forEach items="rData" var="time"> --%>
+<%-- 	                                        <option value="${ time.dataReserveTime }">${ time.dataReserveTime }</option> --%>
+<%--                                     	</c:forEach> --%>
                                 </select>
                                 <br>
                                 <label for="select-people">예매 인원 선택</label><br><input type="number" name="select-people" id="select-people" min="1" max="10" placeholder="예매 인원을 선택해 주세요. (최대 10명)" required>
@@ -126,14 +143,14 @@
                             textColor: 'white'
                         },
                         {
-                            title: '종묘 묘현례 1차',
+                            title: '묘현례 1차',
                             start:'2023-07-10',
                             end: '2023-07-17',
                             color: 'cadetblue',
                             textColor: 'white'
                         },
                         {
-                            title: '종묘 묘현례 2차',
+                            title: '묘현례 2차',
                             start:'2023-08-14',
                             end: '2023-08-18',
                             color: 'cadetblue',
@@ -151,22 +168,16 @@
                 calendar.render();
             });
         </script>
+        
+        <script>
+        	function selectPlace() {
+        		
+        	}
+        </script>
+        
 
         <!-- 버튼 이벤트 -->
         <script>
-//             // 예매자 정보 동일 선택 시, 자동 입력
-//             document.getElementById("login-user").addEventListener("change", function(){
-//                 if(document.getElementById("login-user").checked){
-//                     document.getElementById("user-name").value = "홍길동";
-//                     document.getElementById("user-phone").value = "01011112222";
-//                     document.getElementById("user-email").value = "xxx@xxx.xxx";
-//                 } else {
-//                     document.getElementById("user-name").value = "";
-//                     document.getElementById("user-phone").value = "";
-//                     document.getElementById("user-email").value = "";
-//                 }
-//             });
-            
             // 예매자 정보 동일 선택 시, 자동 입력
             document.getElementById("login-user").addEventListener("change", function(){
             	const userName = '${ user.userName }';
