@@ -32,6 +32,13 @@ public class NoticeServiceImpl implements NoticeService {
 		return result;
 	}
 
+	// 공지사항 조회수 증가
+	@Override
+	public int updateViewCount(Notice noticeView) {
+		int result = nStore.updateViewCount(sqlSession, noticeView);
+		return result;
+	}
+
 	@Override
 	public int deleteNotice(int noticeNo) {
 		int result = nStore.deleteNotice(sqlSession, noticeNo);

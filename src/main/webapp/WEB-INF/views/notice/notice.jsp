@@ -55,11 +55,12 @@
                             <th>공지번호</th>
                             <th>공지사항</th>
                             <th>작성일</th>
+                            <th>조회수</th>
                         </tr>
                         <!-- 공지사항 목록이 존재하지 않을 때 -->
                         <c:if test="${ empty nList }">
                         	<tr>
-                        		<td colspan="3" id="notice-none">목록이 존재하지 않습니다.</td>
+                        		<td colspan="4" id="notice-none">목록이 존재하지 않습니다.</td>
                        		</tr>
                         </c:if>
                         <!-- 공지사항 목록이 존재할 때 -->
@@ -74,6 +75,7 @@
 		                        		</c:if>
 		                        	</td>
 		                        	<td>${ notice.noticeDate }</td>
+		                        	<td>${ notice.viewCount }</td>
 		                        </tr>
 	                        </c:forEach>  
                         </c:if>

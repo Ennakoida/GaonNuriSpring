@@ -8,15 +8,23 @@ th {
 }
 
 th:first-child {
-    width: 140px;
+    width: 100px;
 }
 
 th:nth-child(2){
-    width: 800px;
+    width: 820px;
+}
+
+/* th:last-child { */
+/*     width: 210px; */
+/* } */
+
+th:nth-child(3) {
+    width: 130px;
 }
 
 th:last-child {
-    width: 210px;
+    width: 80px;
 }
 
 td {
@@ -52,7 +60,7 @@ td:nth-child(2):hover {
     color: #EA5455;
 }
 
-td:last-child {
+td:nth-child(3), td:last-child {
     color: #a0a0a0;
     font-size: 0.9em;
 }

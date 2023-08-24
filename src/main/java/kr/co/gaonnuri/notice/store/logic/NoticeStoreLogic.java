@@ -26,6 +26,13 @@ public class NoticeStoreLogic implements NoticeStore{
 		return result;
 	}
 
+	// 공지사항 조회수 증가
+	@Override
+	public int updateViewCount(SqlSession sqlSession, Notice noticeView) {
+		int result = sqlSession.update("NoticeMapper.updateViewCount", noticeView);
+		return result;
+	}
+
 	@Override
 	public int deleteNotice(SqlSession sqlSession, int noticeNo) {
 		int result = sqlSession.delete("NoticeMapper.deleteNotice", noticeNo);

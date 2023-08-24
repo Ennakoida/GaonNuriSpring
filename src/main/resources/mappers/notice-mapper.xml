@@ -26,6 +26,10 @@
 		UPDATE NOTICE_TBL SET NOTICE_SUBJECT = #{ noticeSubject }, NOTICE_CONTENT = #{ noticeContent }, UPDATE_DATE = DEFAULT, NOTICE_FILENAME = #{ noticeFileName }, NOTICE_FILERENAME = #{ noticeFileRename }, NOTICE_FILEPATH = #{ noticeFilePath }, NOTICE_FILELENGTH = #{ noticeFileLength } WHERE NOTICE_NO = #{ noticeNo }
 	</update>
 	
+	<update id="updateViewCount">
+		UPDATE NOTICE_TBL SET VIEW_COUNT = #{ viewCount } WHERE NOTICE_NO = #{ noticeNo }
+	</update>
+	
 	<delete id="deleteNotice">
 		DELETE FROM NOTICE_TBL WHERE NOTICE_NO = #{ noticeNo }
 	</delete>

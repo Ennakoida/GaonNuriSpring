@@ -120,10 +120,17 @@ public class NoticeController {
 									, Model model) {
 		try {
 			Notice notice = service.selectOneByNo(noticeNo);
+			Notice noticeView = new Notice(noticeNo, notice.getViewCount() + 1);
+			int result = service.updateViewCount(noticeView);
+			notice.setViewCount(noticeView.getViewCount());
 			
-			if(notice != null) {
+			if(notice != null && result > 0) {
 				model.addAttribute("notice", notice);
 				return "notice/noticeDetail";
+			} else if (result <= 0){
+				model.addAttribute("msg", "조회수 갱신");
+				model.addAttribute("url", "/notice/notice.do");
+				return "common/serviceFailed";
 			} else {
 				model.addAttribute("msg", "공지사항 상세 조회");
 				model.addAttribute("url", "/notice/notice.do");

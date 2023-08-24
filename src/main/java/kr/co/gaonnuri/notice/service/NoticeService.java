@@ -23,6 +23,13 @@ public interface NoticeService {
 	public int updateNotice(Notice notice);
 
 	/**
+	 * 공지사항 조회수 증가 Service
+	 * @param noticeView
+	 * @return
+	 */
+	public int updateViewCount(Notice noticeView);
+
+	/**
 	 * 공지사항 삭제 Service
 	 * @param noticeNo
 	 * @return

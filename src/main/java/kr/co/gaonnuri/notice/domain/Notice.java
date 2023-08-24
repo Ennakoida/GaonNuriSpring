@@ -23,6 +23,12 @@ public class Notice {
 		this.noticeContent = noticeContent;
 	}
 	
+	public Notice(int noticeNo, int viewCount) {
+		super();
+		this.noticeNo = noticeNo;
+		this.viewCount = viewCount;
+	}
+
 	public Notice(int noticeNo, String noticeSubject, String noticeContent) {
 		super();
 		this.noticeNo = noticeNo;

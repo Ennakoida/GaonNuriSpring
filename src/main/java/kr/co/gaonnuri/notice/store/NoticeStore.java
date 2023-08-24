@@ -26,6 +26,14 @@ public interface NoticeStore {
 	 */
 	public int updateNotice(SqlSession sqlSession, Notice notice);
 
+	/** 
+	 * 공지사항 조회수 증가 Store
+	 * @param sqlSession
+	 * @param noticeView
+	 * @return
+	 */
+	public int updateViewCount(SqlSession sqlSession, Notice noticeView);
+
 	/**
 	 * 공지사항 삭제 Store
 	 * @param sqlSession
