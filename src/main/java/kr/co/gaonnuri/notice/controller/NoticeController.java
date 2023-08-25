@@ -299,11 +299,11 @@ public class NoticeController {
 			folder.mkdir();
 		}
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss"); // 나중에 SS랑 ss 비교
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
 		String strResult = sdf.format(new Date(System.currentTimeMillis()));
 		
-		String ext = fileName.substring(fileName.lastIndexOf(".") + 1); // 확장자명 추출 (=png) // . 을 포함하지 않고 자르기 위해 +1
-		String fileRename = "N" + strResult + "." + ext; // 랜덤한 수를 이용한 중복X 파일 생성
+		String ext = fileName.substring(fileName.lastIndexOf(".") + 1); 
+		String fileRename = "N" + strResult + "." + ext; 
 		String savePath = saveFolder + "\\" + fileRename;
 		File file = new File(savePath);
 		
