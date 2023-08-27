@@ -119,8 +119,8 @@ main {
 		    #write-qna > button  {
 		    	background-color: #002B5B;
 		        color: #F3F3F3;
-	            width: 142px;
-	            height: 45px;
+	            width: 80px;
+	            height: 25px;
 		        margin: 0px;
 		        border: 2px solid #002B5B;
 		        border-radius: 8px;
@@ -168,7 +168,7 @@ main {
 		    }
 		
 		        
-    /* 공지사항 */
+    /* Q&A */
     #qna {
         width: 950px;
         margin: 0 auto;
@@ -203,7 +203,7 @@ main {
             color: #EA5455;
         }
         
-	/* 비어있는 공지 */
+	/* 비어있는 질문 */
 	#qna-none {
 		height: 470px;
 		font-family: 'Chosunilbo_myungjo', sans-serif, serif;

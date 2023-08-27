@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="QnaMapper">
+	
+	<resultMap type="kr.co.gaonnuri.qna.domain.Qna" id="qnaResultMap">
+		<id     property="qnaNo"          column="QNA_NO"/>
+		<result property="qnaSubject"     column="QNA_SUBJECT"/>
+		<result property="qnaContent"     column="QNA_CONTENT"/>
+		<result property="qnaWriter"     column="QNA_WRITER"/>
+		<result property="qnaFileName"    column="QNA_FILENAME"/>
+		<result property="qnaFileRename"  column="QNA_FILERENAME"/>
+		<result property="qnaFilePath"    column="QNA_FILEPATH"/>
+		<result property="qnaFileLength"  column="QNA_FILELENGTH"/>
+		<result property="qCreateDate"    column="Q_CREATE_DATE"/>
+		<result property="qUpdateDate"    column="Q_UPDATE_DATE"/>
+		<result property="qViewCount"     column="Q_VIEW_COUNT"/>
+	</resultMap>
+	
+	<insert id="insertQna">
+		INSERT INTO QNA_TBL VALUES(SEQ_QNANO.NEXTVAL, #{ qnaSubject }, #{ qnaContent }, #{ qnaWriter }, #{ qnaFileName }, #{ qnaFileRename }, #{ qnaFilePath }, #{ qnaFileLength }, DEFAULT, DEFAULT, DEFAULT)
+	</insert>
+	
+	<update id="updateQna">
+		UPDATE QNA_TBL SET QNA_SUBJECT = #{ qnaSubject }, QNA_CONTENT = #{ qnaContent }, QNA_FILENAME = #{ qnaFileName }, QNA_FILERENAME = #{ qnaFileRename }, QNA_FILEPATH = #{ qnaFilePath }, QNA_FILELENGTH = #{ qnaFileLength }, Q_UPDATE_DATE = DEFAULT WHERE QNA_NO = #{ qnaNo }
+	</update>
+	
+	<update id="updateViewCount">
+		UPDATE QNA_TBL SET Q_VIEW_COUNT = #{ qViewCount } WHERE QNA_NO = #{ qnaNo }
+	</update>
+	
+	<delete id="deleteQna">
+		DELETE FROM QNA_TBL WHERE QNA_NO = #{ qnaNo }
+	</delete>
+
+	<select id="selectQnaList" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL ORDER BY QNA_NO DESC
+	</select>
+	
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_TBL
+	</select>
+	
+	<select id="selectSearchQnaList" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE QNA_SUBJECT LIKE '%' || #{ qnaSubject } ||'%' ORDER BY QNA_NO DESC
+	</select>
+	
+	<select id="selectQnaSearch" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE QNA_SUBJECT LIKE '%' || #{ qnaSubject } ||'%'
+	</select>
+	
+		<select id="selectQnasByKeyword" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL
+		<if test="searchCondition == 'all'">
+			WHERE QNA_SUBJECT LIKE '%' || #{ searchKeyword } || '%' OR QNA_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'title'">
+			WHERE QNA_SUBJECT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE QNA_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		ORDER BY QNA_NO DESC
+	</select>
+	
+	<select id="selectListByKeywordCount" resultType="_int">
+		SELECT COUNT(*) FROM QNA_TBL
+		<if test="searchCondition == 'all'">
+			WHERE QNA_SUBJECT LIKE '%' || #{ searchKeyword } || '%' OR QNA_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'title'">
+			WHERE QNA_SUBJECT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+		<if test="searchCondition == 'content'">
+			WHERE QNA_CONTENT LIKE '%' || #{ searchKeyword } || '%'
+		</if>
+	</select>
+	
+	<select id="selectOneByNo" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE QNA_NO = #{ qnaNo }
+	</select>
+
+</mapper>

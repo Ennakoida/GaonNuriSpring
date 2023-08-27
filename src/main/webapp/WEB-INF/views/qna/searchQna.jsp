@@ -14,27 +14,36 @@
 			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
             <main>
                 <section id="qna-title">
-                    <h1>Q & A</h1>
+                    <h1>Q&A</h1>
                     <div id="colorBox"></div>
                 </section>
                 <!-- Q&A -->
                 <section id="qna">
+                
                 	<div id="qna-menu">
 	                    <!-- 작성하기 버튼 -->
+						<!-- 관리자 계정(admin)만 작성하기 버튼 보임  -->
+						<c:if test="${ sessionScope.userId eq 'admin' }">
 		                    <div id="write-qna">
-			                    <button onclick="location.href='/qna/insert.do'">작성하기</button>
+			                    <button onclick="location.href='/qna/writeNotice.do'">작성하기</button>
 		                    </div>
+	                    </c:if>
+	                    <c:if test="${ sessionScope.userId ne 'admin' }">
+		                    <div id="write-qna" style="visibility: hidden;">
+			                    <button onclick="location.href='/qna/writeNotice.do'">작성하기</button>
+		                    </div>
+	                    </c:if>
 	                    
-						<!-- 검색창 -->
+   						<!-- 검색창 -->
 						<div id="search-qna">
 		                    <form name="searchForm" action="/qna/search.do" method="get" id="search-qna-input">
 	                    		<!-- 검색 분류 -->
 	                    		<select name="searchCondition">
-									<option value="all">전체</option>
-									<option value="title">제목</option>
-									<option value="content">내용</option>
+									<option value="all" <c:if test="${ searchCondition eq 'all' }">selected</c:if>>전체</option>
+									<option value="title" <c:if test="${ searchCondition eq 'title' }">selected</c:if>>제목</option>
+									<option value="content" <c:if test="${ searchCondition eq 'content' }">selected</c:if>>내용</option>
 								</select>
-		                    	<input type="search" name="searchKeyword" placeholder="검색어 입력">
+		                    	<input type="search" name="searchKeyword" placeholder="검색어 입력" value=${ searchKeyword }>
 		                    	<div id="search-qna-icon">
 			                    	<a href="javascript:void(0)" onclick="getSearchNotice();"><img alt="검색" src="/resources/img/search-icon.png"></a>
 		                    	</div>
@@ -49,35 +58,36 @@
                             <th>작성일</th>
                             <th>조회수</th>
                         </tr>
-                        <!-- Q&A 목록이 존재하지 않을 때 -->
-                        <c:if test="${ empty qList }">
+                        <!-- 검색된 Q&A 목록이 존재하지 않을 때 -->
+                        <c:if test="${ empty sList }">
                         	<tr>
-                        		<td colspan="4" id="qna-none">질문 목록이 존재하지 않습니다.</td>
+                        		<td colspan="4" id="qna-none">검색된 Q&A 목록이 존재하지 않습니다.</td>
                        		</tr>
                         </c:if>
-                        <!-- Q&A 목록이 존재할 때 -->
-                        <c:if test="${ !empty qList }">
-                        	<!-- Q&A 목록 -->
-	                        <c:forEach var="qna" items="${ qList }">
+                        <!-- 검색된 Q&A 목록이 존재할 때 -->
+                        <c:if test="${ !empty sList }">
+	                        <c:forEach var="search" items="${ sList }">
 		                        <tr>
-		                        	<td>${ qna.qnaNo }</td>
-		                        	<td onclick="location.href='/qna/detail.do?qnaNo=${ qna.qnaNo }'">${ qna.qnaSubject }
-		                        		<c:if test="${ qna.qnaFileName ne null }">
+		                        	<td>${ search.qnaNo }</td>
+		                        	<td onclick="location.href='/qna/detail.do?qnaNo=${ search.qnaNo }'">${ search.qnaSubject }
+		                        		<c:if test="${ search.qnaFileName ne null }">
 		                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
 		                        		</c:if>
 		                        	</td>
-		                        	<td>${ qna.qCreateDate }</td>
-		                        	<td>${ qna.qViewCount }</td>
+		                        	<td>${ search.qCreateDate }</td>
+		                        	<td>${ search.qViewCount }</td>
 		                        </tr>
-	                        </c:forEach>  
+	                        </c:forEach>       
                         </c:if>
                     </table>
 	                        
-                     <!-- 페이지 전환 버튼  -->
-                     <c:if test="${ !empty qList }">
+                    <!-- 페이지 전환 버튼  -->
+                    <c:if test="${ !empty sList }">
 	                    <ul id="page">
 	                    	<!-- 이전 -->
-							<c:url var="prevPageUrl" value="/qna/list.do">
+							<c:url var="prevPageUrl" value="/qna/search.do">
+								<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+								<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
 								<c:param name="page" value="${ pInfo.startNavi - 1 }"></c:param>
 							</c:url>
 							<c:if test="${ pInfo.startNavi ne 1 }">
@@ -89,7 +99,9 @@
 							
 							<!-- 페이징 -->
 							<c:forEach begin="${ pInfo.startNavi }" end="${ pInfo.endNavi }" var="p">
-								<c:url var="pageUrl" value="/qna/list.do">
+								<c:url var="pageUrl" value="/qna/search.do">
+									<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+									<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
 									<c:param name="page" value="${ p }"></c:param>
 								</c:url>
 								
@@ -102,7 +114,9 @@
 							</c:forEach>
 							
 							<!-- 다음 -->
-							<c:url var="nextPageUrl" value="/qna/list.do">
+							<c:url var="nextPageUrl" value="/qna/search.do">
+								<c:param name="searchCondition" value="${ searchCondition }"></c:param>
+								<c:param name="searchKeyword" value="${ searchKeyword }"></c:param>
 								<c:param name="page" value="${ pInfo.endNavi + 1 }"></c:param>
 							</c:url>
 							<c:if test="${ pInfo.endNavi ne pInfo.naviTotalCount }">
@@ -111,8 +125,8 @@
 							<c:if test="${ pInfo.endNavi eq pInfo.naviTotalCount }">
 								<li>></li>
 							</c:if>
-	                    </ul>   
-	            	</c:if>                   	
+	                    </ul>       
+	            	</c:if>          	
                 </section>
             </main>
             <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>

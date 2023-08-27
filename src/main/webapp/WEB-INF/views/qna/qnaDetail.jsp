@@ -1,0 +1,132 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!--Q&A-->
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+		<jsp:include page="/WEB-INF/views/include/head.jsp"></jsp:include>
+        <link rel="stylesheet" href="/resources/css/qna/qnaDetail.css">
+        <title>Q&A</title>
+    </head>
+    <body>
+        <div id="container">
+			<jsp:include page="/WEB-INF/views/include/header.jsp"></jsp:include>
+            <main>
+                <section id="detail-title">
+                    <h1>Q & A</h1>
+                    <div id="colorBox"></div>
+                </section>
+                <!-- Q&A -->
+                <section id="detail">
+                
+                	<!-- 작성자(loginUser)가 아닐 경우 Q&A 수정 불가능 -->
+                	<!-- 관리자(admin), 작성자(loginUser)가 아닐 경우 Q&A 삭제 불가능 -->
+                	<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne qna.qnaWriter }">
+	                  	<div id="detail-button" style="visibility: hidden;">
+		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail">수정하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
+                		</div>
+                    </c:if>
+                    <c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq qna.qnaWriter }">
+	                  	<div id="detail-button">
+		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail">수정하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
+                		</div>
+                    </c:if>
+					<table>
+						<tr>
+							<td class="detail-top">${ qna.qnaNo }</td>
+							<td class="detail-top">${ qna.qnaSubject }</td>
+							<td class="detail-top">${ qna.qCreateDate }</td>
+							<td class="detail-top">${ qna.qViewCount }</td>
+						</tr>
+						<tr>
+							<td colspan="4" id="detail-content" style="white-space:pre;">${ qna.qnaContent }</td>
+						</tr>
+						<c:if test="${ qna.qnaFileName ne null }">
+							<tr>
+								<td colspan="4" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ qna.qnaFileRename }" download style="color:#979797;">${ qna.qnaFileName }</a></td>
+							</tr>						
+						</c:if>
+					</table>
+					
+					<!-- 댓글 작성 -->
+					<form action="/reply/add.do" method="post">
+						<input type="hidden" name="refQnaNo" value="${ qna.qnaNo }">
+						<table id=insert-reply>
+							<tr>
+								<td>
+									<textarea rows="3" cols="55" name="replyContent"></textarea>
+								</td>
+								<td>
+									<input type="submit" value="등록">
+								</td>
+							</tr>
+						</table>
+					</form>
+			
+					<!-- 댓글 목록 -->
+					<c:if test="${ !empty rList }">
+						<table id=reply-list>
+							<c:forEach var="reply" items="${ rList }">
+								<tr>
+									<td>${ reply.replyWriter }</td>
+									<td>${ reply.rCreateDate }</td>
+									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
+										<td class="reply-edit-btn">
+											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>
+											<a href="#">삭제</a>
+										</td>
+									</c:if>
+									<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne reply.replyWriter }">
+										<td class="reply-edit-btn" style="display: none;">
+											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
+											<a href="#">삭제</a>
+										</td>
+									</c:if>
+								</tr>
+								<tr>
+									<td colspan="3">${ reply.replyContent }</td>
+								</tr>
+								<tr style="display: none;">
+									<form action="/reply/update.do" method="post">
+										<input type="hidden" name="replyNo" value="${ reply.replyNo }">
+										<input type="hidden" name="refQnaNo" value="${ reply.refQnaNo }">
+										<td colspan="3"><textarea rows="3" cols="55" name="replyContent">${ reply.replyContent }</textarea>
+										<td><input type="submit" value="수정 완료"></td>
+									</form>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
+			
+					<div>
+						<button onclick="location.href='/qna/list.do'">목록으로</button>
+                	</div>
+                </section>
+            </main>
+            <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/views/include/asideMovePageBtn.jsp"></jsp:include>
+        </div>
+        <script>
+        	const getSearchNotice = () => {
+        		searchForm.submit();
+        	}
+        	
+        	const deleteCheck = () => {
+				const qnaNo = '${ qna.qnaNo }';
+				if(confirm("삭제하시겠습니까?")){
+					location.href = "/qna/delete.do?qnaNo=" + qnaNo;
+				}
+			}
+        </script>
+        <script>
+			function showModifyForm(obj) {
+				var obj = obj.parentElement.parentElement.nextElementSibling.nextElementSibling;
+				if(obj.style.display == "none") obj.style.display = "";
+				else obj.style.display = "none";
+			}
+		</script>
+    </body>
+</html>
