@@ -25,8 +25,7 @@
             <li class="main-nav">열린 마당
                 <ul id="community-menu">
                     <a href="/notice/notice.do?currentPage=1"><li>공지사항</li></a>
-                    <a href="#"><li>Q&A</li></a>
-<!--                                 <a href="#"><li>마이페이지</li></a> -->
+                    <a href="/qna/list.do?currentPage=1"><li>Q&A</li></a>
                 </ul>
             </li>
         </ul>
@@ -43,7 +42,6 @@
             	<li class="sub-nav"><a href="javascript:void(0)" onclick="checkLogout();">로그아웃</a></li>
             	<li class="sub-nav"><a href="/user/myInfo.do?userId=${ sessionScope.userId }">마이페이지</a></li>
             </c:if>
-<!--                         <li class="sub-nav"><a href="/user/enroll.do">회원가입</a></li> -->
             <li class="sub-nav">한국어 ▾
                 <ul id="LNG-menu">
                     <li>한국어</li>

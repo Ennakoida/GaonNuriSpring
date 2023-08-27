@@ -24,21 +24,21 @@
          			<c:if test="${ sessionScope.userId ne 'admin' }">
 	                    <div id="detail-button" style="visibility: hidden;">
 		                    <button onclick="location.href='/notice/modify.do?noticeNo=${ notice.noticeNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck()" id="delete-detail">삭제하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
                 		</div>
                     </c:if>
                     <c:if test="${ sessionScope.userId eq 'admin' }">
 	                  	<div id="detail-button">
 		                    <button onclick="location.href='/notice/modify.do?noticeNo=${ notice.noticeNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck()" id="delete-detail">삭제하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
                 		</div>
                     </c:if>
 					<table>
 						<tr>
 							<td class="detail-top">${ notice.noticeNo }</td>
 							<td class="detail-top">${ notice.noticeSubject }</td>
-							<td class="detail-top">${ notice.noticeDate }</td>
-							<td class="detail-top">${ notice.viewCount }</td>
+							<td class="detail-top">${ notice.nCreateDate }</td>
+							<td class="detail-top">${ notice.nViewCount }</td>
 						</tr>
 						<tr>
 							<td colspan="4" id="detail-content" style="white-space:pre;">${ notice.noticeContent }</td>

@@ -120,9 +120,9 @@ public class NoticeController {
 									, Model model) {
 		try {
 			Notice notice = service.selectOneByNo(noticeNo);
-			Notice noticeView = new Notice(noticeNo, notice.getViewCount() + 1);
+			Notice noticeView = new Notice(noticeNo, notice.getnViewCount() + 1);
 			int result = service.updateViewCount(noticeView);
-			notice.setViewCount(noticeView.getViewCount());
+			notice.setnViewCount(noticeView.getnViewCount());
 			
 			if(notice != null && result > 0) {
 				model.addAttribute("notice", notice);

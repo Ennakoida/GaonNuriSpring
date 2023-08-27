@@ -53,15 +53,15 @@
                     
                     <table frame=void>
                         <tr>
-                            <th>공지번호</th>
-                            <th>공지사항</th>
+                            <th>번호</th>
+                            <th>제목</th>
                             <th>작성일</th>
                             <th>조회수</th>
                         </tr>
                         <!-- 검색된 공지사항 목록이 존재하지 않을 때 -->
                         <c:if test="${ empty sList }">
                         	<tr>
-                        		<td colspan="4" id="notice-none">목록이 존재하지 않습니다.</td>
+                        		<td colspan="4" id="notice-none">검색된 공지사항 목록이 존재하지 않습니다.</td>
                        		</tr>
                         </c:if>
                         <!-- 검색된 공지사항 목록이 존재할 때 -->
@@ -74,8 +74,8 @@
 		                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
 		                        		</c:if>
 		                        	</td>
-		                        	<td>${ search.noticeDate }</td>
-		                        	<td>${ search.viewCount }</td>
+		                        	<td>${ search.nCreateDate }</td>
+		                        	<td>${ search.nViewCount }</td>
 		                        </tr>
 	                        </c:forEach>       
                         </c:if>
