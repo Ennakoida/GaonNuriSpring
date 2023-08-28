@@ -23,8 +23,12 @@
 		UPDATE REPLY_TBL SET REPLY_CONTENT = #{ replyContent }, R_UPDATE_DATE = DEFAULT, UPDATE_YN = #{ updateYn } WHERE REPLY_NO = #{ replyNo }
 	</update>
 	
+	<delete id="deleteReply">
+		DELETE FROM REPLY_TBL WHERE REPLY_NO = #{ replyNo }
+	</delete>
+	
 	<select id="selectReplyList" resultMap="replyResultMap">
-		SELECT * FROM REPLY_TBL WHERE REF_QNA_NO = #{ refQnaNo }
+		SELECT * FROM REPLY_TBL WHERE REF_QNA_NO = #{ refQnaNo } ORDER BY R_CREATE_DATE
 	</select>
 	
 </mapper>

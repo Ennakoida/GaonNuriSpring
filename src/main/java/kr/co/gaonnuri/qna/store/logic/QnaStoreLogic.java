@@ -45,6 +45,12 @@ public class QnaStoreLogic implements QnaStore{
 		return qna;
 	}
 
+	@Override
+	public List<Qna> selectAllQnasById(SqlSession session, String userId) {
+		List<Qna> qList = session.selectList("QnaMapper.selectAllQnasById", userId);
+		return qList;
+	}
+
 	// Q&A 전체 목록
 	@Override
 	public List<Qna> selectQnaList(SqlSession session, PageInfo pInfo) {

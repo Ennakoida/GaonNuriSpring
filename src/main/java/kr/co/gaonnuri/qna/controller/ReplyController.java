@@ -62,9 +62,44 @@ public class ReplyController {
 				reply.setReplyWriter(replyWriter);
 				url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
 				int result = rService.updateReply(reply);
-				return "redirect:" + url;
+				if(result > 0) {
+					return "redirect:" + url;					
+				} else {
+					model.addAttribute("msg", "댓글 수정");
+					return "common/errorMessage";
+				}
 			} else {
 				model.addAttribute("msg", "댓글 수정");
+				model.addAttribute("url", "/user/login.do");
+				return "common/needLogin";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
+	}
+	
+	// 댓글 삭제
+	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
+	public String deleteReply(int replyNo
+							  , int refQnaNo
+							  , HttpSession session
+							  , Model model) {
+		String url = "";
+		try {
+			String replyWriter = (String)session.getAttribute("userId");
+			if(replyWriter != null) {
+				url = "/qna/detail.do?qnaNo=" + refQnaNo;
+				int result = rService.deleteReply(replyNo);
+				if(result > 0) {
+					return "redirect:" + url;
+				} else {
+					model.addAttribute("msg", "댓글 삭제");
+					return "common/errorMessage";
+				}
+			} else {
+				model.addAttribute("msg", "댓글 삭제");
 				model.addAttribute("url", "/user/login.do");
 				return "common/needLogin";
 			}

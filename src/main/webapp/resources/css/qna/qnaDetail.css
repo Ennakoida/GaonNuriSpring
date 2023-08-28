@@ -30,19 +30,21 @@ main {
     #detail {
         width: 950px;
         margin: 0 auto;
+        padding-top: 45px;
     }
     
     	#detail-button {
-    		margin-top: 45px;
+/*     		margin-top: 45px; */
     		display: flex;
     		justify-content: end;
+    		padding-bottom: 10px;
     	}
     		
-    		#modify-detail {
+    		#modify-detail-btn {
     			background-color: #F3F3F3;
 		        color: #002B5B;
-                width: 142px;
-                height: 45px;
+                width: 80px;
+	            height: 25px;
 		        margin: 0px;
 		        margin-right: 5px;
 		        border: 2px solid #002B5B;
@@ -52,11 +54,11 @@ main {
 		        text-align: center;
     		}
     		
-    		#delete-detail {
+    		#delete-detail-btn {
     			background-color: #002B5B;
 		        color: #F3F3F3;
-                width: 142px;
-                height: 45px;
+                width: 80px;
+	            height: 25px;
 		        margin: 0px;
 		        border: 2px solid #002B5B;
 		        border-radius: 8px;
@@ -68,8 +70,6 @@ main {
         #detail > table:first-child {
             display: flex;
             justify-content: center;
-            padding-top: 10px;
-            padding-bottom: 10px;
         }
         
         .detail-top {
@@ -134,6 +134,84 @@ main {
 			    text-decoration-color: #002B5B;
 			}
 			
+		
+		/* 댓글 목록 */
+		#reply-list {
+			background-color: #ccc6 ;	
+			width: 950px;
+		}
+
+			/* 아이디 */
+			#reply-list tr:nth-child(3n-2) > td:first-child {
+				width: 700px;	
+				text-align: left;
+				font-weight: bold;
+				color: #002B5B;
+				padding-left: 20px;
+				border: none;
+			}
+			
+			/* 날짜 */
+			#reply-list tr:nth-child(3n-2) > td:nth-child(2) {
+				width: 150px;
+				text-align: right;	
+				font-size: 0.8em;
+				color: #a0a0a0;
+				border: none;
+				padding-right: 20px;
+				cursor: auto;
+			}
+			
+			/* 수정 삭제 */
+			.reply-edit-btn {
+				width: 100px;	
+				font-size: 0.85em;
+				border: none;
+				padding-right: 20px;
+			}
+			
+				.reply-edit-btn > a:hover {
+					color: #EA5455;
+				}
+			
+			/* 내용 */
+			#reply-list tr:nth-child(3n-1) > td {
+				text-align: left;
+				padding: 10px 20px;
+				padding-top: 0px;
+				color: black;
+				border: none;
+				border-bottom: 2px dotted #bbb;
+			} 	
+			
+			/* 수정하기 */
+			#reply-list tr:nth-child(3n) {
+			}
+			
+				/* 수정 내용 입력창 */
+				#reply-list tr:nth-child(3n) td:nth-of-type(1) > textarea {
+					resize: none;
+					width: 830px;
+					height: 70px;
+					display: flex;
+					justify-content: center;
+				}
+				
+				/* 수정 완료 버튼 */
+				#reply-list tr:nth-child(3n) td:nth-of-type(2) > input {
+					background-color: #002B5B;
+			        color: #F3F3F3;
+	                width: 75px;
+	                height: 75px;
+			        margin: 0px;
+			        border: 2px solid #002B5B;
+			        border-radius: 8px;
+			        font-size: 0.9em;
+			        cursor:pointer;
+			        text-align: center;
+				}
+				
+		
 		/* 댓글 작성 */
 		#insert-reply {
 			background-color: #ccc6 ;	
@@ -168,55 +246,7 @@ main {
 		        cursor:pointer;
 		        text-align: center;
 			}
-		
-		/* 댓글 목록 */
-		#reply-list {
-			background-color: #ccc6 ;	
-			width: 950px;
-		}
-
-			/* 아이디 */
-			#reply-list tr:nth-child(3n-2) > td:first-child {
-				width: 780px;	
-				text-align: left;
-				font-weight: bold;
-				color: #002B5B;
-				padding-left: 20px;
-				border: none;
-			}
 			
-			/* 날짜 */
-			#reply-list tr:nth-child(3n-2) > td:nth-child(2) {
-				width: 100px;
-				text-align: right;	
-				font-size: 0.8em;
-				color: #a0a0a0;
-				border: none;
-				padding-right: 20px;
-			}
-			
-			/* 수정 삭제 */
-			.reply-edit-btn {
-				width: 70px;	
-				font-size: 0.85em;
-				border: none;
-				padding-right: 20px;
-			}
-			
-				.reply-edit-btn > a:hover {
-					color: #EA5455;
-				}
-			
-			/* 내용 */
-			#reply-list tr:nth-child(3n-1) > td {
-				text-align: left;
-				padding: 10px 20px;
-				padding-top: 0px;
-				color: black;
-				border: none;
-				border-bottom: 2px solid #bbb;
-			} 			
-		
 		/* 목록으로 버튼 */
 		#detail > div:last-child {
 			padding-bottom: 50px;
@@ -229,7 +259,7 @@ main {
 		        color: #F3F3F3;
                 width: 142px;
                 height: 45px;
-		        margin: 0px;
+		        margin: 10px auto;
 		        border: 2px solid #002B5B;
 		        border-radius: 8px;
 		        font-size: 0.9em;

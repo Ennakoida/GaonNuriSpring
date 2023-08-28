@@ -21,16 +21,10 @@
                 <section id="detail">
                 
                 	<!-- 관리자가 아닐 경우 공지사항 수정, 삭제 불가능 -->
-         			<c:if test="${ sessionScope.userId ne 'admin' }">
-	                    <div id="detail-button" style="visibility: hidden;">
-		                    <button onclick="location.href='/notice/modify.do?noticeNo=${ notice.noticeNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
-                		</div>
-                    </c:if>
                     <c:if test="${ sessionScope.userId eq 'admin' }">
 	                  	<div id="detail-button">
-		                    <button onclick="location.href='/notice/modify.do?noticeNo=${ notice.noticeNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
+		                    <button onclick="location.href='/notice/modify.do?noticeNo=${ notice.noticeNo }'" id="modify-detail-btn">수정하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail-btn">삭제하기</button>
                 		</div>
                     </c:if>
 					<table>

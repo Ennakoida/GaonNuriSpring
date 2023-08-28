@@ -35,6 +35,10 @@
 		DELETE FROM QNA_TBL WHERE QNA_NO = #{ qnaNo }
 	</delete>
 
+	<select id="selectAllQnasById" resultMap="qnaResultMap">
+		SELECT * FROM QNA_TBL WHERE QNA_WRITER = #{ qnaWriter } ORDER BY QNA_NO DESC 
+	</select>
+	
 	<select id="selectQnaList" resultMap="qnaResultMap">
 		SELECT * FROM QNA_TBL ORDER BY QNA_NO DESC
 	</select>

@@ -30,19 +30,20 @@ main {
     #detail {
         width: 950px;
         margin: 0 auto;
+        padding-top: 45px;
     }
     
     	#detail-button {
-    		margin-top: 45px;
+/*     		margin-top: 45px; */
     		display: flex;
     		justify-content: end;
     	}
     		
-    		#modify-detail {
+    		#modify-detail-btn {
     			background-color: #F3F3F3;
 		        color: #002B5B;
-                width: 142px;
-                height: 45px;
+                width: 80px;
+	            height: 25px;
 		        margin: 0px;
 		        margin-right: 5px;
 		        border: 2px solid #002B5B;
@@ -52,11 +53,11 @@ main {
 		        text-align: center;
     		}
     		
-    		#delete-detail {
+    		#delete-detail-btn {
     			background-color: #002B5B;
 		        color: #F3F3F3;
-                width: 142px;
-                height: 45px;
+                width: 80px;
+	            height: 25px;
 		        margin: 0px;
 		        border: 2px solid #002B5B;
 		        border-radius: 8px;
@@ -147,7 +148,7 @@ main {
 		        color: #F3F3F3;
                 width: 142px;
                 height: 45px;
-		        margin: 0px;
+		        margin: 0 auto;
 		        border: 2px solid #002B5B;
 		        border-radius: 8px;
 		        font-size: 0.9em;

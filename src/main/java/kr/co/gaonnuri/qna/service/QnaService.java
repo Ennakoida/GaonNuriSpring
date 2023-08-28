@@ -44,6 +44,13 @@ public interface QnaService {
 	public Qna selectOneByNo(int qnaNo);
 	
 	/**
+	 * 회원 아이디를 이용해 Q&A 목록 조회 Service
+	 * @param userId
+	 * @return
+	 */
+	public List<Qna> selectAllQnasById(String userId);
+
+	/**
 	 * Q&A 목록 조회 Service
 	 * @param pInfo 
 	 * @return

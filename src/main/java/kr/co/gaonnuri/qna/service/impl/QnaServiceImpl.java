@@ -52,6 +52,12 @@ public class QnaServiceImpl implements QnaService {
 		return qna;
 	}
 
+	@Override
+	public List<Qna> selectAllQnasById(String userId) {
+		List<Qna> qList = qStore.selectAllQnasById(session, userId);
+		return qList;
+	}
+
 	// Q&A 전체 목록
 	@Override
 	public List<Qna> selectQnaList(PageInfo pInfo) {

@@ -22,16 +22,10 @@
                 
                 	<!-- 작성자(loginUser)가 아닐 경우 Q&A 수정 불가능 -->
                 	<!-- 관리자(admin), 작성자(loginUser)가 아닐 경우 Q&A 삭제 불가능 -->
-                	<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne qna.qnaWriter }">
-	                  	<div id="detail-button" style="visibility: hidden;">
-		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
-                		</div>
-                    </c:if>
                     <c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq qna.qnaWriter }">
 	                  	<div id="detail-button">
-		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail">수정하기</button>
-		                    <button onclick="deleteCheck();" id="delete-detail">삭제하기</button>
+		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail-btn">수정하기</button>
+		                    <button onclick="deleteCheck();" id="delete-detail-btn">삭제하기</button>
                 		</div>
                     </c:if>
 					<table>
@@ -51,6 +45,41 @@
 						</c:if>
 					</table>
 					
+					<!-- 댓글 목록 -->
+					<c:if test="${ !empty rList }">
+						<table id=reply-list>
+							<c:forEach var="reply" items="${ rList }">
+								<tr>
+									<td>${ reply.replyWriter }</td>
+									<td>${ reply.rCreateDate }</td>
+									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
+										<td class="reply-edit-btn">
+											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
+											<a href="javascript:void(0)" onclick="deleteReply('${ reply.replyNo }', '${ reply.refQnaNo }');">삭제</a>
+										</td>
+									</c:if>
+									<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne reply.replyWriter }">
+										<td class="reply-edit-btn" style="display: none;">
+											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
+											<a href="javascript:void(0)" onclick="deleteReply('${ reply.replyNo }', '${ reply.refQnaNo }');">삭제</a>
+										</td>
+									</c:if>
+								</tr>
+								<tr>
+									<td colspan="3"  style="white-space:pre;">${ reply.replyContent }</td>
+								</tr>
+								<tr style="display: none;">
+									<form action="/reply/update.do" method="post">
+										<input type="hidden" name="replyNo" value="${ reply.replyNo }">
+										<input type="hidden" name="refQnaNo" value="${ reply.refQnaNo }">
+										<td colspan="2"><textarea rows="3" cols="55" name="replyContent">${ reply.replyContent }</textarea>
+										<td><input type="submit" value="수정 완료"></td>
+									</form>
+								</tr>
+							</c:forEach>
+						</table>
+					</c:if>
+					
 					<!-- 댓글 작성 -->
 					<form action="/reply/add.do" method="post">
 						<input type="hidden" name="refQnaNo" value="${ qna.qnaNo }">
@@ -66,43 +95,9 @@
 						</table>
 					</form>
 			
-					<!-- 댓글 목록 -->
-					<c:if test="${ !empty rList }">
-						<table id=reply-list>
-							<c:forEach var="reply" items="${ rList }">
-								<tr>
-									<td>${ reply.replyWriter }</td>
-									<td>${ reply.rCreateDate }</td>
-									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
-										<td class="reply-edit-btn">
-											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>
-											<a href="#">삭제</a>
-										</td>
-									</c:if>
-									<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne reply.replyWriter }">
-										<td class="reply-edit-btn" style="display: none;">
-											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
-											<a href="#">삭제</a>
-										</td>
-									</c:if>
-								</tr>
-								<tr>
-									<td colspan="3">${ reply.replyContent }</td>
-								</tr>
-								<tr style="display: none;">
-									<form action="/reply/update.do" method="post">
-										<input type="hidden" name="replyNo" value="${ reply.replyNo }">
-										<input type="hidden" name="refQnaNo" value="${ reply.refQnaNo }">
-										<td colspan="3"><textarea rows="3" cols="55" name="replyContent">${ reply.replyContent }</textarea>
-										<td><input type="submit" value="수정 완료"></td>
-									</form>
-								</tr>
-							</c:forEach>
-						</table>
-					</c:if>
-			
 					<div>
 						<button onclick="location.href='/qna/list.do'">목록으로</button>
+<!-- 						<button onclick="goBack();">목록으로</button> -->
                 	</div>
                 </section>
             </main>
@@ -126,6 +121,17 @@
 				var obj = obj.parentElement.parentElement.nextElementSibling.nextElementSibling;
 				if(obj.style.display == "none") obj.style.display = "";
 				else obj.style.display = "none";
+			}
+			
+			function deleteReply(replyNo, refQnaNo) {
+				if(confirm("댓글을 삭제하시겠습니까?")){
+					location.href = "/reply/delete.do?replyNo=" + replyNo + "&refQnaNo=" + refQnaNo;
+				}
+			}
+		</script>
+		<script>
+			function goBack() {
+			    history.back(); // 이전 페이지로 돌아가는 함수
 			}
 		</script>
     </body>

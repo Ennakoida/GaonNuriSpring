@@ -20,8 +20,15 @@ public interface ReplyService {
 	 */
 	int updateReply(Reply reply);
 
+	/**
+	 * Q&A 댓글 삭제 Service
+	 * @param replyNo
+	 * @return
+	 */
+	int deleteReply(int replyNo);
+
 	/** 
-	 * Q&A 댓글 전체 조회
+	 * Q&A 댓글 전체 조회 Service
 	 * @return
 	 */
 	List<Reply> selectReplyList(int refQnaNo);

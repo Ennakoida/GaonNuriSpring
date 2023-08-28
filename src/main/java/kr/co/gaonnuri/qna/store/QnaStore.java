@@ -51,6 +51,14 @@ public interface QnaStore {
 	public Qna selectOneByNo(SqlSession session, int qnaNo);
 	
 	/**
+	 * 회원 아이디를 이용해 Q&A 목록 조회 Store
+	 * @param session
+	 * @param userId
+	 * @return
+	 */
+	public List<Qna> selectAllQnasById(SqlSession session, String userId);
+
+	/**
 	 * Q&A 목록 조회 Store
 	 * @param session
 	 * @param pInfo
