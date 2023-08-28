@@ -1,5 +1,7 @@
 package kr.co.gaonnuri.event.reservation.store.logic;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -21,4 +23,9 @@ public class ReserveStoreLogic implements ReserveStore {
 		return reserve;
 	}
 
+	@Override
+	public List<Reserve> selectAllReservesById(SqlSession session, String userId) {
+		List<Reserve> rList = session.selectList("ReserveMapper.selectAllReservesById", userId);
+		return rList;
+	}
 }

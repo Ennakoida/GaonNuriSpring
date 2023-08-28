@@ -65,16 +65,9 @@ public interface UserService {
 	public User selectOneById(String userId);
 
 	/**
-	 * 회원 아이디를 이용하여 회원의 행사 예매 내역 조회 Service
-	 * @param userId
-	 * @return Reserve 리스트
+	 * 전체 회원 정보 조회 Service
+	 * @return
 	 */
-	public List<Reserve> selectAllReservesById(String userId);
+	public List<User> selectAllUser();
 
-	/**
-	 * 회원 아이디를 이용하여 회원의 한복 대여 내역 조회 Service
-	 * @param userId
-	 * @return Hanbok 리스트
-	 */
-	public List<Hanbok> selectAllRentalsById(String userId);
 }

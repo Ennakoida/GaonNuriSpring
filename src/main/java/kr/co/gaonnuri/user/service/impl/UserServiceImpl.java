@@ -69,15 +69,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Reserve> selectAllReservesById(String userId) {
-		List<Reserve> rList = uStore.selectAllReservesById(sqlSession, userId);
-		return rList;
+	public List<User> selectAllUser() {
+		List<User> uList = uStore.selectAllUser(sqlSession);
+		return uList;
 	}
-
-	@Override
-	public List<Hanbok> selectAllRentalsById(String userId) {
-		List<Hanbok> hList = uStore.selectAllRentalsById(sqlSession, userId);
-		return hList;
-	}
-
 }

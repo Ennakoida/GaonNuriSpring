@@ -16,6 +16,8 @@ import kr.co.gaonnuri.event.reservation.domain.Reserve;
 import kr.co.gaonnuri.event.reservation.service.ReserveService;
 import kr.co.gaonnuri.hanbok.domain.Hanbok;
 import kr.co.gaonnuri.hanbok.service.HanbokService;
+import kr.co.gaonnuri.qna.domain.Qna;
+import kr.co.gaonnuri.qna.service.QnaService;
 import kr.co.gaonnuri.user.domain.User;
 import kr.co.gaonnuri.user.service.UserService;
 
@@ -29,10 +31,14 @@ public class UserController {
 	private ReserveService rService;
 	@Autowired
 	private HanbokService hService;
+	@Autowired
+	private QnaService qService;
 	
 	// 회원가입 페이지 
 	@RequestMapping(value="/user/enroll.do", method=RequestMethod.GET)
-	public String showRegisterForm() {
+	public String showRegisterForm(Model model) {
+		List<User> uList = service.selectAllUser();
+		model.addAttribute("uList", uList);
 		return "user/enroll";
 	}
 	
@@ -210,18 +216,19 @@ public class UserController {
 			User user = service.selectOneById(userId);
 			
 			// 행사 예매 내역
-			List<Reserve> rList = service.selectAllReservesById(userId);
-			System.out.println(rList.toString());
+			List<Reserve> rList = rService.selectAllReservesById(userId);
 			
 			// 한복 대여 내역
-			List<Hanbok> hList = service.selectAllRentalsById(userId);
+			List<Hanbok> hList = hService.selectAllRentalsById(userId);
 			
 			// 나의 질문
+			List<Qna> qList = qService.selectAllQnasById(userId);
 			
 			if(user != null) {
 				model.addAttribute("user", user);
 				model.addAttribute("rList", rList);
 				model.addAttribute("hList", hList);
+				model.addAttribute("qList", qList);
 				return "user/my-info";
 			} else {
 				model.addAttribute("msg", "마이페이지 조회");

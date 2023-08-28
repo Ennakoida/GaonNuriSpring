@@ -29,4 +29,10 @@ public class ReserveServiceImpl implements ReserveService{
 		Reserve reserve = rStore.selectReserveByNo(session, reserveNo);
 		return reserve;
 	}
+	
+	@Override
+	public List<Reserve> selectAllReservesById(String userId) {
+		List<Reserve> rList = rStore.selectAllReservesById(session, userId);
+		return rList;
+	}
 }

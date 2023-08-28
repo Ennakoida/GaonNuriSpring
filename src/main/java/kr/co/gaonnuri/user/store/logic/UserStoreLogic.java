@@ -62,15 +62,8 @@ public class UserStoreLogic implements UserStore {
 	}
 
 	@Override
-	public List<Reserve> selectAllReservesById(SqlSession sqlSession, String userId) {
-		List<Reserve> rList = sqlSession.selectList("ReserveMapper.selectAllReservesById", userId);
-		return rList;
+	public List<User> selectAllUser(SqlSession sqlSession) {
+		List<User> uList = sqlSession.selectList("UserMapper.selectAllUser");
+		return uList;
 	}
-
-	@Override
-	public List<Hanbok> selectAllRentalsById(SqlSession sqlSession, String userId) {
-		List<Hanbok> hList = sqlSession.selectList("HanbokMapper.selectAllRentalsById", userId);
-		return hList;
-	}
-
 }

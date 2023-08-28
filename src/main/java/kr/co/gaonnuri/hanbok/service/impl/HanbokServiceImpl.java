@@ -1,5 +1,7 @@
 package kr.co.gaonnuri.hanbok.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,4 +30,9 @@ public class HanbokServiceImpl implements HanbokService {
 		return hanbok;
 	}
 
+	@Override
+	public List<Hanbok> selectAllRentalsById(String userId) {
+		List<Hanbok> hList = hStore.selectAllRentalsById(session, userId);
+		return hList;
+	}
 }

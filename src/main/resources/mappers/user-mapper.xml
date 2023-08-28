@@ -45,4 +45,8 @@
 	<select id="selectOneById" resultMap="userResultMap">
 		SELECT * FROM USER_TBL WHERE USER_ID = #{ userId }
 	</select>
+	
+	<select id="selectAllUser" resultMap="userResultMap">
+		SELECT * FROM USER_TBL
+	</select>
 </mapper>

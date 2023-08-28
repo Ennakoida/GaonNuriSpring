@@ -20,23 +20,31 @@
 	            	<section id="myinfo">
 		                <div id="myinfo-input">
 		                    <form action="/user/modify.do?userId=${ user.userId }" method="post">
-		                        <label for="user-id">아이디</label><br><input type="text" style="background-color:#ccc;" name="user-id" id="user-id" value="${ user.userId }" readonly>
+		                        <label for="user-id">아이디</label><br>
+		                        <input type="text" style="background-color:#ccc;" name="user-id" id="user-id" value="${ user.userId }" readonly>
 		                        <br>
-		                        <label for="user-pw">비밀번호</label><br><input type="password" name="user-pw" id="user-pw" value="${ user.userPw }">
+		                        <label for="user-pw">비밀번호</label><br>
+		                        <input type="password" name="user-pw" id="user-pw" value="${ user.userPw }" placeholder="6 ~ 12자 영문, 숫자, 특수문자" required  minlength="6" maxlength="12" pattern="^[a-zA-Z0-9!@#$%^&*()_+{}\[\]:;<>,.?~\\/\-=|\\]+$" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('6 ~ 12자 영문, 숫자, 특수문자')">
 		                        <br>
-		                        <label for="user-pw-check">비밀번호 확인</label><br><input type="password" id="user-pw-check" placeholder="수정한 비밀번호를 다시 입력해 주세요.">
+		                        <label for="user-pw-check">비밀번호 확인</label><br>
+		                        <input type="password" id="user-pw-check" placeholder="수정한 비밀번호를 다시 입력해 주세요.">
 		                        <br>
-		                        <label for="user-name">이름</label><br><input type="text" style="background-color:#ccc;" name="user-name" id="user-name" value="${ user.userName }" readonly>
+		                        <label for="user-name">이름</label><br>
+		                        <input type="text" style="background-color:#ccc;" name="user-name" id="user-name" value="${ user.userName }" readonly>
 		                        <br>
-		                        <label for="user-phone">전화번호</label><br><input type="tel" name="user-phone" id="user-phone" value="${ user.userPhone }">
+		                        <label for="user-phone">전화번호</label><br>
+		                        <input type="tel" name="user-phone" id="user-phone" value="${ user.userPhone }" placeholder="하이픈(-)은 빼고 입력해 주세요." required maxlength="11" pattern="^01[0-9]{8,9}$" oninput="setCustomValidity('')" oninvalid="this.setCustomValidity('01로 시작하는 전화번호 11자리')">
 		                        <br>
-		                        <label for="user-email">이메일 (선택)</label><br><input type="email" name="user-email" id="user-email" value="${ user.userEmail }">
+		                        <label for="user-email">이메일 (선택)</label><br>
+		                        <input type="email" name="user-email" id="user-email" value="${ user.userEmail }" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
 		                        <br>
 		                        <c:if test="${ user.userEventYn eq 'Y' }">
-			                        <label for="user-event-yn"><input type="checkbox" name="user-event-yn" id="user-event-yn" value="Y" checked> SMS, 이메일로 상품 및 이벤트 정보를 받겠습니다. (선택)</label>
+			                        <label for="user-event-yn">
+			                        <input type="checkbox" name="user-event-yn" id="user-event-yn" value="Y" checked> SMS, 이메일로 상품 및 이벤트 정보를 받겠습니다. (선택)</label>
 		                        </c:if>
 		                        <c:if test="${ user.userEventYn eq 'N' }">
-		   	                        <label for="user-event-yn"><input type="checkbox" name="user-event-yn" id="user-event-yn" value="N"> SMS, 이메일로 상품 및 이벤트 정보를 받겠습니다. (선택)</label>
+		   	                        <label for="user-event-yn">
+		   	                        <input type="checkbox" name="user-event-yn" id="user-event-yn" value="N"> SMS, 이메일로 상품 및 이벤트 정보를 받겠습니다. (선택)</label>
 		                        </c:if>
 		                        <br>
 		                        <div id="myinfo-btn">
@@ -85,10 +93,14 @@
 						<h4>나의 질문</h4>
 						<section id="my-q">
 							<table>
-								<c:forEach begin="0" end="0">
-									<tr class="table-title">
-										<th>제목</th>
-										<th>작성일</th>
+								<tr class="table-title">
+									<th>제목</th>
+									<th>작성일</th>
+								</tr>
+								<c:forEach var="qna" items="${ qList }">
+									<tr onclick="#">
+										<td>${ qna.qnaSubject }</td>
+										<td>${ qna.qCreateDate }</td>
 									</tr>
 								</c:forEach>
 							</table>

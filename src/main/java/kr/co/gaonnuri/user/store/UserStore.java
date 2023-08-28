@@ -74,19 +74,9 @@ public interface UserStore {
 	public User selectOneById(SqlSession sqlSession, String userId);
 
 	/**
-	 * 회원 아이디를 이용하여 회원의 행사 예매 내역 조회 Store
+	 * 전체 회원 정보 조회 Store
 	 * @param sqlSession
-	 * @param userId
 	 * @return
 	 */
-	public List<Reserve> selectAllReservesById(SqlSession sqlSession, String userId);
-
-	/**
-	 * 회원 아이디를 이용하여 회원의 한복 대여 내역 조회 Store
-	 * @param sqlSession
-	 * @param userId
-	 * @return
-	 */
-	public List<Hanbok> selectAllRentalsById(SqlSession sqlSession, String userId);
-
+	public List<User> selectAllUser(SqlSession sqlSession);
 }
