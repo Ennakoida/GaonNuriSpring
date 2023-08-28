@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.gaonnuri.qna.domain.Reply;
+import kr.co.gaonnuri.qna.service.QnaService;
 import kr.co.gaonnuri.qna.service.ReplyService;
 
 @Controller
@@ -17,6 +18,8 @@ import kr.co.gaonnuri.qna.service.ReplyService;
 public class ReplyController {
 	@Autowired
 	private ReplyService rService;
+	@Autowired
+	private QnaService qService;
 	
 	// 댓글 등록
 	@RequestMapping(value="/add.do", method=RequestMethod.POST)
@@ -25,16 +28,24 @@ public class ReplyController {
 							  , Model model) {
 		String url = "";
 		try {
-			String replyWriter = (String)session.getAttribute("userId");
-			if(replyWriter != null) {
-				reply.setReplyWriter(replyWriter);
-				int result = rService.insertReply(reply);
-				url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
-				
-				if(result > 0) {
-					return "redirect:"+ url;
+			String replyWriter = (String)session.getAttribute("userId"); // 로그인 한 사용자
+			String qnaWriter = qService.selectOneByNo(reply.getRefQnaNo()).getQnaWriter(); // 질문 게시글의 작성자
+			url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
+			
+			if(replyWriter != null) { // 로그인을 했을 때
+				if(replyWriter.equals("admin") || replyWriter.equals(qnaWriter)) { // 로그인 한 사용자가 관리자(admin) 또는 질문 게시글의 작성자일 경우에만 댓글 작성 가능 
+					reply.setReplyWriter(replyWriter);
+					int result = rService.insertReply(reply);
+					
+					if(result > 0) {
+						return "redirect:"+ url;
+					} else {
+						model.addAttribute("msg", "댓글 등록을 실패했습니다.");
+						model.addAttribute("url", url);
+						return "common/serviceFailed";
+					}					
 				} else {
-					model.addAttribute("msg", "댓글 등록을 실패했습니다.");
+					model.addAttribute("msg", "해당 글에 대한 댓글 작성 권한이 없어 댓글 작성");
 					model.addAttribute("url", url);
 					return "common/serviceFailed";
 				}

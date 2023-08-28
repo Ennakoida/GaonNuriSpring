@@ -90,14 +90,20 @@ main {
 		}
 		
 		#detail > table td:nth-child(2) {
-		    width: 800px;
+		    width: 700px;
 		    text-align: left;
 		    padding-left: 20px;
 		    cursor: pointer;
 		}
 		
 		#detail > table td:nth-child(3):not(.reply-edit-btn) {
-		    width: 160px;
+		    width: 125px;
+		    color: #a0a0a0;
+		    font-size: 0.9em;
+		}
+		
+		#detail > table td:nth-child(4) {
+		    width: 125px;
 		    color: #a0a0a0;
 		    font-size: 0.9em;
 		}
@@ -143,11 +149,12 @@ main {
 
 			/* 아이디 */
 			#reply-list tr:nth-child(3n-2) > td:first-child {
-				width: 700px;	
+				width: 735px;	
 				text-align: left;
 				font-weight: bold;
 				color: #002B5B;
 				padding-left: 20px;
+				padding-top: 5px;
 				border: none;
 			}
 			
@@ -164,10 +171,15 @@ main {
 			
 			/* 수정 삭제 */
 			.reply-edit-btn {
-				width: 100px;	
+				width: 65px;	
 				font-size: 0.85em;
 				border: none;
 				padding-right: 20px;
+				text-align: left;
+			}
+			
+			.reply-edit-btn a {
+				color: #002B5B;
 			}
 			
 				.reply-edit-btn > a:hover {
@@ -177,7 +189,7 @@ main {
 			/* 내용 */
 			#reply-list tr:nth-child(3n-1) > td {
 				text-align: left;
-				padding: 10px 20px;
+				padding: 0 20px;
 				padding-top: 0px;
 				color: black;
 				border: none;
@@ -246,7 +258,7 @@ main {
 		        cursor:pointer;
 		        text-align: center;
 			}
-			
+						
 		/* 목록으로 버튼 */
 		#detail > div:last-child {
 			padding-bottom: 50px;

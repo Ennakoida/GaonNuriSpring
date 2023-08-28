@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!--Q&A-->
 <!DOCTYPE html>
 <html lang="ko">
@@ -32,15 +33,16 @@
 						<tr>
 							<td class="detail-top">${ qna.qnaNo }</td>
 							<td class="detail-top">${ qna.qnaSubject }</td>
+							<td class="detail-top">${ qna.qnaWriter }</td>
 							<td class="detail-top">${ qna.qCreateDate }</td>
 							<td class="detail-top">${ qna.qViewCount }</td>
 						</tr>
 						<tr>
-							<td colspan="4" id="detail-content" style="white-space:pre;">${ qna.qnaContent }</td>
+							<td colspan="5" id="detail-content" style="white-space:pre;">${ qna.qnaContent }</td>
 						</tr>
 						<c:if test="${ qna.qnaFileName ne null }">
 							<tr>
-								<td colspan="4" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ qna.qnaFileRename }" download style="color:#979797;">${ qna.qnaFileName }</a></td>
+								<td colspan="5" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ qna.qnaFileRename }" download style="color:#979797;">${ qna.qnaFileName }</a></td>
 							</tr>						
 						</c:if>
 					</table>
@@ -51,7 +53,11 @@
 							<c:forEach var="reply" items="${ rList }">
 								<tr>
 									<td>${ reply.replyWriter }</td>
-									<td>${ reply.rCreateDate }</td>
+									<td>
+										<fmt:formatDate value="${ reply.rCreateDate }" pattern="yyyy-MM-dd" var="datePart" />
+									    <fmt:formatDate value="${ reply.rCreateDate }" pattern="HH:mm:ss" var="timePart" />
+									    ${ datePart } &nbsp;&nbsp; ${ timePart }
+									</td>
 									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
 										<td class="reply-edit-btn">
 											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
@@ -66,7 +72,7 @@
 									</c:if>
 								</tr>
 								<tr>
-									<td colspan="3"  style="white-space:pre;">${ reply.replyContent }</td>
+									<td colspan="3"  style="white-space:pre; vertical-align: top;">${ reply.replyContent }</td>
 								</tr>
 								<tr style="display: none;">
 									<form action="/reply/update.do" method="post">

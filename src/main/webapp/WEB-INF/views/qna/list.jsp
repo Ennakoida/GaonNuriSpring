@@ -46,13 +46,14 @@
                         <tr>
                             <th>번호</th>
                             <th>제목</th>
+                            <th>작성자</th>
                             <th>작성일</th>
                             <th>조회수</th>
                         </tr>
                         <!-- Q&A 목록이 존재하지 않을 때 -->
                         <c:if test="${ empty qList }">
                         	<tr>
-                        		<td colspan="4" id="qna-none">질문 목록이 존재하지 않습니다.</td>
+                        		<td colspan="5" id="qna-none">질문 목록이 존재하지 않습니다.</td>
                        		</tr>
                         </c:if>
                         <!-- Q&A 목록이 존재할 때 -->
@@ -66,6 +67,7 @@
 		                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">
 		                        		</c:if>
 		                        	</td>
+		                        	<td>${ qna.qnaWriter }</td>
 		                        	<td>${ qna.qCreateDate }</td>
 		                        	<td>${ qna.qViewCount }</td>
 		                        </tr>
