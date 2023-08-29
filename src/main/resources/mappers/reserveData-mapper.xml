@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="ReserveDataMapper">
+	
+	<resultMap type="kr.co.gaonnuri.event.reservation.domain.ReserveData" id="reserveDataResultMap">
+		<result property="dataReservePlace"  		column="DATA_RESERVE_PLACE"/>
+		<result property="dataReserveStartDate"  	column="DATA_RESERVE_START_DATE"/>
+		<result property="dataReserveEndDate"   	column="DATA_RESERVE_END_DATE"/>
+		<result property="dataReserveTime"   		column="DATA_RESERVE_TIME"/>
+	</resultMap>
+
+	<select id="selectOptionsbyPlace" resultMap="reserveDataResultMap">
+		SELECT * FROM DATA_RESERVE_TBL WHERE DATA_RESERVE_PLACE = #{ selectPlace }
+	</select>
+
+</mapper>

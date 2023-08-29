@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.event.reservation.domain.ReserveData;
 import kr.co.gaonnuri.event.reservation.service.ReserveService;
 import kr.co.gaonnuri.event.reservation.store.ReserveStore;
 
@@ -34,5 +35,11 @@ public class ReserveServiceImpl implements ReserveService{
 	public List<Reserve> selectAllReservesById(String userId) {
 		List<Reserve> rList = rStore.selectAllReservesById(session, userId);
 		return rList;
+	}
+
+	@Override
+	public List<ReserveData> selectOptionsbyPlace(String selectedPlace) {
+		List<ReserveData> rDataList = rStore.selectOptionsbyPlace(session, selectedPlace);
+		return rDataList;
 	}
 }

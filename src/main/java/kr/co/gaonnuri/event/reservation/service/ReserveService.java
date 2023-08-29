@@ -3,6 +3,7 @@ package kr.co.gaonnuri.event.reservation.service;
 import java.util.List;
 
 import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.event.reservation.domain.ReserveData;
 
 public interface ReserveService {
 
@@ -26,5 +27,12 @@ public interface ReserveService {
 	 * @return Reserve 리스트
 	 */
 	public List<Reserve> selectAllReservesById(String userId);
+
+	/**
+	 * 행사 선택에 따른 행사 데이터 불러오기 Service
+	 * @param selectedPlace
+	 * @return
+	 */
+	List<ReserveData> selectOptionsbyPlace(String selectedPlace);
 
 }

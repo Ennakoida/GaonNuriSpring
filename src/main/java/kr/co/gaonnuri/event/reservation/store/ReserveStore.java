@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.event.reservation.domain.ReserveData;
 
 public interface ReserveStore {
 
@@ -31,4 +32,12 @@ public interface ReserveStore {
 	 * @return
 	 */
 	public List<Reserve> selectAllReservesById(SqlSession session, String userId);
+
+	/**
+	 * 행사 선택에 따른 행사 데이터 불러오기 Store
+	 * @param session
+	 * @param selectedPlace
+	 * @return
+	 */
+	List<ReserveData> selectOptionsbyPlace(SqlSession session, String selectedPlace);
 }

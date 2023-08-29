@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- 행사 예매 페이지 -->
 <!DOCTYPE html>
 <html lang="ko">
@@ -27,39 +28,28 @@
                         <form action="/event/reservation.do" method="post">
                             <div id="select-event">
                                 <label for="select-place">행사 선택</label><br>
-                                <select name="select-place" id="select-place" required>
-                                    <option value="" disabled selected hidden>고궁을 선택해 주세요.</option>
-                                        <option value="경복궁">경복궁</option>
-                                        <option value="덕수궁">덕수궁</option>
-                                        <option value="창경궁">창경궁</option>
-                                        <option value="창덕궁">창덕궁</option>
-                                        <option value="종묘">종묘</option>
+                                <select name="select-place" id="select-place" onchange="selectPlace(this.value, '${ sessionScope.userId }');" required>
+                                    <option value="" disabled selected hidden>행사를 선택해 주세요.</option>
+                                        <option value="cgg" <c:if test="${ selectPlace eq 'cgg' }">selected</c:if>>궁궐 일상모습 재현 및 체험</option>
+                                        <option value="cdg-1" <c:if test="${ selectPlace eq 'cdg-1' }">selected</c:if>>달빛기행 1차</option>
+                                        <option value="cdg-2" <c:if test="${ selectPlace eq 'cdg-2' }">selected</c:if>>달빛기행 2차</option>
+                                        <option value="jm-1" <c:if test="${ selectPlace eq 'jm-1' }">selected</c:if>>묘현례 1차</option>
+                                        <option value="jm-2" <c:if test="${ selectPlace eq 'jm-2' }">selected</c:if>>묘현례 2차</option>
+                                        <option value="dsg" <c:if test="${ selectPlace eq 'dsg' }">selected</c:if>>밤의 석조전</option>
+                                        <option value="gbg-1" <c:if test="${ selectPlace eq 'gbg-1' }">selected</c:if>>별빛야행 1차</option>
+                                        <option value="gbg-2" <c:if test="${ selectPlace eq 'gbg-2' }">selected</c:if>>별빛야행 2차</option>
                                 </select>
-<!--                                 <select name="select-place" id="select-place" onchange="selectPlace();" required> -->
-<!--                                     <option value="" disabled selected hidden>행사를 선택해 주세요.</option> -->
-<!--                                         <option value="cgg">궁궐 일상모습 재현 및 체험</option> -->
-<!--                                         <option value="cdg-1">달빛기행 1차</option> -->
-<!--                                         <option value="cdg-2">달빛기행 2차</option> -->
-<!--                                         <option value="jm-1">묘현례 1차</option> -->
-<!--                                         <option value="jm-2">묘현례 2차</option> -->
-<!--                                         <option value="dsg">밤의 석조전</option> -->
-<!--                                         <option value="gbg-1">별빛야행 1차</option> -->
-<!--                                         <option value="gbg-2">별빛야행 2차</option> -->
-<!--                                 </select> -->
                                 <br>
-<!--                                 <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="2023-08-12" max="2023-08-25" required> -->
-<%--                                 <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="${ rData.dataReserveStartDate }" max="${ rData.dataReserveEndDate }" required> --%>
-                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="${ dataReserveStartDate }" max="${ dataReserveEndDate }" required>
+								<fmt:formatDate value="${ rData[0].dataReserveStartDate }" pattern="yyyy-MM-dd" var="startDate" />
+								<fmt:formatDate value="${ rData[0].dataReserveEndDate }" pattern="yyyy-MM-dd" var="endDate" />
+                                <label for="select-date">날짜 선택</label><br><input type="date" name="select-date" id="select-date" min="${ startDate }" max="${ endDate }" required>
                                 <br>
                                 <label for="select-time">시간 선택</label><br>
                                 <select name="select-time" id="select-time" required>
                                     <option value="" disabled selected hidden>방문 시간을 선택해 주세요.</option>
-                                    	<option>${dataReserveTime }</option>
-<!--                                    		<option value="18 : 40">18 : 40</option> -->
-<!--                                     	<option value="19 : 40">19 : 40</option> -->
-<%--                                     	<c:forEach items="rData" var="time"> --%>
-<%-- 	                                        <option value="${ time.dataReserveTime }">${ time.dataReserveTime }</option> --%>
-<%--                                     	</c:forEach> --%>
+                                    	<c:forEach items="${ rData }" var="time">
+	                                        <option value="${ time.dataReserveTime }">${ time.dataReserveTime }</option>
+                                    	</c:forEach>
                                 </select>
                                 <br>
                                 <label for="select-people">예매 인원 선택</label><br><input type="number" name="select-people" id="select-people" min="1" max="10" placeholder="예매 인원을 선택해 주세요. (최대 10명)" required>
@@ -170,8 +160,8 @@
         </script>
         
         <script>
-        	function selectPlace() {
-        		
+        	function selectPlace(place, userId) {
+        		location.href="/event/rInfoCheck.do?selectPlace=" + place + "&userId=" + userId;
         	}
         </script>
         
@@ -193,9 +183,9 @@
                     document.getElementById("user-email").value = "";
                 }
             });
-            </script>
+		</script>
 
-			<script>
+		<script>
             // input 박스 내부 글씨 색 변경 용
             document.getElementById("select-place").addEventListener("change", function(){
                 document.getElementById("select-place").style.color = "black";
@@ -223,5 +213,16 @@
                 })
             });
         </script>
+        <script>
+		    // 페이지 로드 시 select-place의 값을 가져와서 color를 black으로 변경
+		    document.addEventListener('DOMContentLoaded', function() {
+		        var selectPlaceValue = '${ param.selectPlace }';
+		        if (selectPlaceValue !== '') {
+		            var selectPlaceElement = document.getElementById('select-place');
+		            selectPlaceElement.value = selectPlaceValue;
+		            selectPlaceElement.style.color = 'black';
+		        }
+		    });
+		</script>
     </body>
 </html>

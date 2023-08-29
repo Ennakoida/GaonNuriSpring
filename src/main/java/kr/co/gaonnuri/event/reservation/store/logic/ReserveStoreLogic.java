@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import kr.co.gaonnuri.event.reservation.domain.Reserve;
+import kr.co.gaonnuri.event.reservation.domain.ReserveData;
 import kr.co.gaonnuri.event.reservation.store.ReserveStore;
 
 @Repository
@@ -27,5 +28,11 @@ public class ReserveStoreLogic implements ReserveStore {
 	public List<Reserve> selectAllReservesById(SqlSession session, String userId) {
 		List<Reserve> rList = session.selectList("ReserveMapper.selectAllReservesById", userId);
 		return rList;
+	}
+
+	@Override
+	public List<ReserveData> selectOptionsbyPlace(SqlSession session, String selectedPlace) {
+		List<ReserveData> rDataList = session.selectList("ReserveDataMapper.selectOptionsbyPlace", selectedPlace);
+		return rDataList;
 	}
 }

@@ -12,6 +12,7 @@
 	<mappers>
 		<mapper resource="mappers/user-mapper.xml"/>
 		<mapper resource="mappers/reserve-mapper.xml"/>
+		<mapper resource="mappers/reserveData-mapper.xml"/>
 		<mapper resource="mappers/hanbok-mapper.xml"/>
 		<mapper resource="mappers/notice-mapper.xml"/>
 		<mapper resource="mappers/qna-mapper.xml"/>
