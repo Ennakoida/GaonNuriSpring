@@ -21,9 +21,12 @@
                 <section id="qna">
                 	<div id="qna-menu">
 	                    <!-- 작성하기 버튼 -->
+                    	<!-- 로그인 했을 때만 질문 작성 가능 -->
+                    	<c:if test="${ sessionScope.userId ne null }">
 		                    <div id="write-qna">
-			                    <button onclick="location.href='/qna/insert.do'">작성하기</button>
+			                    	<button onclick="location.href='/qna/insert.do'">작성하기</button>
 		                    </div>
+	                    </c:if>
 	                    
 						<!-- 검색창 -->
 						<div id="search-qna">

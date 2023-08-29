@@ -58,16 +58,15 @@
 									    <fmt:formatDate value="${ reply.rCreateDate }" pattern="HH:mm:ss" var="timePart" />
 									    ${ datePart } &nbsp;&nbsp; ${ timePart }
 									</td>
+									<c:url var="delUrl" value="/reply/delete.do">
+										<c:param name="replyNo" value="${ reply.replyNo }"></c:param>
+										<c:param name="replyWriter" value="${ reply.replyWriter }"></c:param>
+										<c:param name="refQnaNo" value="${ reply.refQnaNo }"></c:param>
+									</c:url>
 									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
 										<td class="reply-edit-btn">
 											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
-											<a href="javascript:void(0)" onclick="deleteReply('${ reply.replyNo }', '${ reply.refQnaNo }');">삭제</a>
-										</td>
-									</c:if>
-									<c:if test="${ sessionScope.userId ne 'admin' || sessionScope.userId ne reply.replyWriter }">
-										<td class="reply-edit-btn" style="display: none;">
-											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
-											<a href="javascript:void(0)" onclick="deleteReply('${ reply.replyNo }', '${ reply.refQnaNo }');">삭제</a>
+											<a href="javascript:void(0)" onclick="deleteReply('${ delUrl }');">삭제</a>
 										</td>
 									</c:if>
 								</tr>
@@ -129,9 +128,9 @@
 				else obj.style.display = "none";
 			}
 			
-			function deleteReply(replyNo, refQnaNo) {
+			function deleteReply(url) {
 				if(confirm("댓글을 삭제하시겠습니까?")){
-					location.href = "/reply/delete.do?replyNo=" + replyNo + "&refQnaNo=" + refQnaNo;
+					location.href = url;
 				}
 			}
 		</script>

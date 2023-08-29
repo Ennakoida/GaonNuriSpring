@@ -93,21 +93,27 @@ public class ReplyController {
 	
 	// 댓글 삭제
 	@RequestMapping(value="/delete.do", method=RequestMethod.GET)
-	public String deleteReply(int replyNo
-							  , int refQnaNo
+	public String deleteReply(@ModelAttribute Reply reply
 							  , HttpSession session
 							  , Model model) {
 		String url = "";
 		try {
 			String replyWriter = (String)session.getAttribute("userId");
+			String qnaWriter = qService.selectOneByNo(reply.getRefQnaNo()).getQnaWriter();
 			if(replyWriter != null) {
-				url = "/qna/detail.do?qnaNo=" + refQnaNo;
-				int result = rService.deleteReply(replyNo);
-				if(result > 0) {
-					return "redirect:" + url;
+				if(replyWriter.equals("admin") || replyWriter.equals(qnaWriter)) {
+					url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
+					int result = rService.deleteReply(reply.getReplyNo());
+					if(result > 0) {
+						return "redirect:" + url;
+					} else {
+						model.addAttribute("msg", "댓글 삭제");
+						return "common/errorMessage";
+					}
 				} else {
-					model.addAttribute("msg", "댓글 삭제");
-					return "common/errorMessage";
+					model.addAttribute("msg", "해당 글에 대한 댓글 삭제 권한이 없어 댓글 삭제");
+					model.addAttribute("url", url);
+					return "common/serviceFailed";
 				}
 			} else {
 				model.addAttribute("msg", "댓글 삭제");

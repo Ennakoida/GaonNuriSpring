@@ -27,11 +27,6 @@
 			                    <button onclick="location.href='/notice/insert.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
-	                    <c:if test="${ sessionScope.userId ne 'admin' }">
-		                    <div id="write-notice" style="visibility: hidden;">
-			                    <button onclick="location.href='/notice/insert.do'">작성하기</button>
-		                    </div>
-	                    </c:if>
 	                    
 						<!-- 검색창 -->
 						<div id="search-notice">
@@ -66,9 +61,10 @@
                         <!-- 공지사항 목록이 존재할 때 -->
                         <c:if test="${ !empty nList }">
                         	<!-- 공지사항 목록 -->
-	                        <c:forEach var="notice" items="${ nList }">
+	                        <c:forEach var="notice" items="${ nList }" varStatus="i">
 		                        <tr>
-		                        	<td>${ notice.noticeNo }</td>
+<%-- 		                        	<td>${pInfo.totalCount - (pInfo.currentPage - 1) * pInfo.recordCountPerPage - i.index}</td> --%>
+									<td>${ notice.noticeNo }</td>
 		                        	<td onclick="location.href='/notice/detail.do?noticeNo=${ notice.noticeNo }'">${ notice.noticeSubject }
 		                        		<c:if test="${ notice.noticeFileName ne null }">
 		                        			&nbsp;<img src="/resources/img/file-icon.png" alt="첨부파일" id="file-exist">

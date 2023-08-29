@@ -108,7 +108,7 @@ main {
 		    font-size: 0.9em;
 		}
 		
-		#detail > table td:last-child:not(#detail-content){
+		#detail > table td:nth-child(5):not(#detail-content){
 		    width: 70px;
 		    font-size: 0.9em;
 		}

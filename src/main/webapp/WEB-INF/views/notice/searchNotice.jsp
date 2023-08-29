@@ -28,11 +28,6 @@
 			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
-	                    <c:if test="${ sessionScope.userId ne 'admin' }">
-		                    <div id="write-notice" style="visibility: hidden;">
-			                    <button onclick="location.href='/notice/writeNotice.do'">작성하기</button>
-		                    </div>
-	                    </c:if>
 	                    
    						<!-- 검색창 -->
 						<div id="search-notice">

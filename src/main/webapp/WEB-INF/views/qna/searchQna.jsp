@@ -22,14 +22,9 @@
                 
                 	<div id="qna-menu">
 	                    <!-- 작성하기 버튼 -->
-						<!-- 관리자 계정(admin)만 작성하기 버튼 보임  -->
-						<c:if test="${ sessionScope.userId eq 'admin' }">
+						<!-- 로그인 했을 때만 질문 작성 가능 -->
+                    	<c:if test="${ sessionScope.userId ne null }">
 		                    <div id="write-qna">
-			                    <button onclick="location.href='/qna/writeNotice.do'">작성하기</button>
-		                    </div>
-	                    </c:if>
-	                    <c:if test="${ sessionScope.userId ne 'admin' }">
-		                    <div id="write-qna" style="visibility: hidden;">
 			                    <button onclick="location.href='/qna/writeNotice.do'">작성하기</button>
 		                    </div>
 	                    </c:if>
