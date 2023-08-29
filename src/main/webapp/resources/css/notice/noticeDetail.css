@@ -96,7 +96,6 @@ main {
 		    width: 800px;
 		    text-align: left;
 		    padding-left: 20px;
-		    cursor: pointer;
 		}
 		
 		td:nth-child(3) {

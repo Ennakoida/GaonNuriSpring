@@ -93,7 +93,6 @@ main {
 		    width: 700px;
 		    text-align: left;
 		    padding-left: 20px;
-		    cursor: pointer;
 		}
 		
 		#detail > table td:nth-child(3):not(.reply-edit-btn) {
