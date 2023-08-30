@@ -187,15 +187,15 @@ main {
 		
 		/* 	행사 예매 내역 */
 		#my-reserve th:first-child {
-			width: 40%;
+			width: 43%;
 		}
 		
 		#my-reserve th:nth-child(2) {
-			width: 35%;
+			width: 27%;
 		}
 		
 		#my-reserve th:last-child {
-			width: 25%;
+			width: 30%;
 		}
 		
 		/* 한복 대여 내역 */
