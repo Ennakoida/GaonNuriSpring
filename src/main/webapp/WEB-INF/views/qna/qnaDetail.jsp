@@ -65,7 +65,11 @@
 									</c:url>
 									<c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq reply.replyWriter }">
 										<td class="reply-edit-btn">
-											<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
+											<!-- 작성자만 댓글 수정 가능 -->
+											<c:if test="${ sessionScope.userId eq reply.replyWriter }">	
+												<a href="javascript:void(0)" onclick="showModifyForm(this);">수정</a>&nbsp;&nbsp;
+											</c:if>
+											<!-- 관리자와 작성자만 댓글 삭제 가능 -->
 											<a href="javascript:void(0)" onclick="deleteReply('${ delUrl }');">삭제</a>
 										</td>
 									</c:if>
@@ -77,8 +81,8 @@
 									<form action="/reply/update.do" method="post">
 										<input type="hidden" name="replyNo" value="${ reply.replyNo }">
 										<input type="hidden" name="refQnaNo" value="${ reply.refQnaNo }">
-										<td colspan="2"><textarea rows="3" cols="55" name="replyContent">${ reply.replyContent }</textarea>
-										<td><input type="submit" value="수정 완료"></td>
+										<td colspan="2" class="modify-replyContent"><textarea rows="3" cols="55" name="replyContent">${ reply.replyContent }</textarea>
+										<td class="modify-reply-btn"><input type="submit" value="수정 완료"></td>
 									</form>
 								</tr>
 							</c:forEach>

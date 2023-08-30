@@ -69,15 +69,23 @@ public class ReplyController {
 		String url = "";
 		try {
 			String replyWriter = (String)session.getAttribute("userId");
-			if(!replyWriter.equals("")) {
-				reply.setReplyWriter(replyWriter);
-				url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
-				int result = rService.updateReply(reply);
-				if(result > 0) {
-					return "redirect:" + url;					
+			String qnaWriter = qService.selectOneByNo(reply.getRefQnaNo()).getQnaWriter();
+			url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
+			
+			if(replyWriter != null) {
+				if(replyWriter.equals(qnaWriter)) { // 로그인 한 사용자가 질문 게시글의 작성자일 경우에만 댓글 수정 가능 
+					reply.setReplyWriter(replyWriter);
+					int result = rService.updateReply(reply);
+					if(result > 0) {
+						return "redirect:" + url;					
+					} else {
+						model.addAttribute("msg", "댓글 수정");
+						return "common/errorMessage";
+					}
 				} else {
-					model.addAttribute("msg", "댓글 수정");
-					return "common/errorMessage";
+					model.addAttribute("msg", "해당 글에 대한 댓글 수정 권한이 없어 댓글 수정");
+					model.addAttribute("url", url);
+					return "common/serviceFailed";
 				}
 			} else {
 				model.addAttribute("msg", "댓글 수정");
@@ -100,9 +108,10 @@ public class ReplyController {
 		try {
 			String replyWriter = (String)session.getAttribute("userId");
 			String qnaWriter = qService.selectOneByNo(reply.getRefQnaNo()).getQnaWriter();
+			url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
+			
 			if(replyWriter != null) {
-				if(replyWriter.equals("admin") || replyWriter.equals(qnaWriter)) {
-					url = "/qna/detail.do?qnaNo=" + reply.getRefQnaNo();
+				if(replyWriter.equals("admin") || replyWriter.equals(qnaWriter)) { // 로그인 한 사용자가 관리자(admin) 또는 질문 게시글의 작성자일 경우에만 댓글 삭제 가능 
 					int result = rService.deleteReply(reply.getReplyNo());
 					if(result > 0) {
 						return "redirect:" + url;

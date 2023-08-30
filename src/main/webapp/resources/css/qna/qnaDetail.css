@@ -148,7 +148,7 @@ main {
 
 			/* 아이디 */
 			#reply-list tr:nth-child(3n-2) > td:first-child {
-				width: 735px;	
+				width: 724px;	
 				text-align: left;
 				font-weight: bold;
 				color: #002B5B;
@@ -170,11 +170,11 @@ main {
 			
 			/* 수정 삭제 */
 			.reply-edit-btn {
-				width: 65px;	
+				width: 76px;	
 				font-size: 0.85em;
 				border: none;
 				padding-right: 20px;
-				text-align: left;
+				text-align: right;
 			}
 			
 			.reply-edit-btn a {
@@ -187,9 +187,11 @@ main {
 			
 			/* 내용 */
 			#reply-list tr:nth-child(3n-1) > td {
+				height: auto;
 				text-align: left;
 				padding: 0 20px;
 				padding-top: 0px;
+				padding-bottom: 20px;
 				color: black;
 				border: none;
 				border-bottom: 2px dotted #bbb;
@@ -256,6 +258,21 @@ main {
 		        font-size: 0.9em;
 		        cursor:pointer;
 		        text-align: center;
+			}
+			
+			.modify-replyContent {
+			    border: 2px dotted !important ;
+			    border-left: none !important ;
+			    border-right: none !important ;
+			    padding: 15px !important ;
+			    padding-right: 0px !important ;
+			}
+			
+			.modify-reply-btn {
+			    border: 2px dotted #bbb !important ;
+			    border-left: none !important ;
+			    border-right: none !important ;
+			    padding-right: 15px !important ;
 			}
 						
 		/* 목록으로 버튼 */
