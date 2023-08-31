@@ -72,38 +72,6 @@
 									</tr>
 								</c:forEach>
 							</table>
-							
-							<div id="modalWrap">
-							    <div id="modalBody">
-									<span id="closeBtn">&times;</span>
-									<table>
-										<tr>
-											<td>행사 장소</td>
-											<td>${ reserve.reservePlace }</td>
-											<td>행사 날짜</td>
-											<td>${ reserve.reserveDate }</td>
-										</tr>
-										<tr>
-											<td>행사 시간</td>
-											<td>${ reserve.reserveTime }</td>
-											<td>인원 수</td>
-											<td>${ reserve.reservePeople }명</td>
-										</tr>
-										<tr>
-											<td>예매자</td>
-											<td>${ reserve.reserveName }</td>
-											<td>예매 날짜</td>
-											<td>${ reserve.makeReservationDate }</td>
-										</tr>
-										<tr>
-											<td>이메일</td>
-											<td>${ reserve.reserveEmail }</td>
-											<td>전화번호</td>
-											<td>${ reserve.reservePhone }</td>
-										</tr>
-									</table>
-							    </div>
-							</div>
 						</section>            
 						<h4>한복 대여 내역</h4>
 						<section id="my-rental">
@@ -130,7 +98,7 @@
 									<th>작성일</th>
 								</tr>
 								<c:forEach var="qna" items="${ qList }">
-									<tr onclick="#">
+									<tr onclick="openQnaPopup(${ qna.qnaNo });">
 										<td>${ qna.qnaSubject }</td>
 										<td>${ qna.qCreateDate }</td>
 									</tr>
@@ -170,23 +138,32 @@
 		</script>
 
 	    <script>
-			const modal = document.getElementById('modalWrap');
-			const closeBtn = document.getElementById('closeBtn');
-			
 		    function openReservePopup(reserveNo) {
-// 		    	var options = "width=550,height=700,resizable=no,scrollbars=no";
-// 		    	window.open("/user/popReserve.do?reserveNo=" + reserveNo, "행사 예매 내역", options);
-				modal.style.display = 'block';
+				var width = 800;
+				var height = 500;
+				var left = (window.innerWidth - width) / 2;
+				var top = (window.innerHeight - height) / 2;
+				var options = "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",resizable=no,scrollbars=no";
+				window.open("/user/popReserve.do?reserveNo=" + reserveNo, "행사 예매 내역", options);
 	        }
 		    
 		    function openRentalPopup(rentalNo) {
-		    	var options = "width=550,height=700,resizable=no,scrollbars=no";
+		    	var width = 800;
+				var height = 580;
+				var left = (window.innerWidth - width) / 2;
+				var top = (window.innerHeight - height) / 2;
+				var options = "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",resizable=no,scrollbars=no";
 		    	window.open("/user/popRental.do?rentalNo=" + rentalNo, "한복 대여 내역", options);
 	        }
 		    
-		    closeBtn.onclick = function() {
-				modal.style.display = 'none';
-		    }
+		    function openQnaPopup(qnaNo) {
+		    	var width = 800;
+				var height = 400;
+				var left = (window.innerWidth - width) / 2;
+				var top = (window.innerHeight - height) / 2;
+				var options = "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left + ",resizable=no,scrollbars=no";
+		    	window.open("/user/popQna.do?qnaNo=" + qnaNo, "나의 질문 내역", options);
+	        }
     	</script>
 	</body>
 </html>

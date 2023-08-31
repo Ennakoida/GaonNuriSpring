@@ -12,12 +12,12 @@
 	<body>
 		<div id="container">
 			<header></header>
-			<main>
-				<section id="reserve-title">
+			<main style="height: 529px">
+				<section id="title">
 		            <h1>한복 예매 내역</h1>
 		            <div id="colorBox"></div>
 	            </section>
-	            <section id="reserve">
+	            <section id="content">
 					<table>
 						<tr>
 							<td>대여 장소</td>
@@ -26,7 +26,7 @@
 							<td>${ hanbok.rentalDate }</td>
 						</tr>
 						<tr>
-							<td>대여 제품 이름</td>
+							<td style="width: 20%;">대여 제품 이름</td>
 							<td colspan="3">${ hanbok.rentalHanbok }</td>
 						</tr>
 						<tr>
@@ -45,12 +45,11 @@
 							<td>장신구</td>
 							<td>${ hanbok.rentalAccessories }</td>
 							<td>가격</td>
-							<td><fmt:formatNumber pattern="##,###,###" value="${ hanbok.rentalPrice }"> </fmt:formatNumber></td>
+							<td><fmt:formatNumber pattern="##,###,###" value="${ hanbok.rentalPrice }"/>원</td>
 						</tr>
 					</table>
 	            </section>
 			</main>
-            <jsp:include page="/WEB-INF/views/include/footer.jsp"></jsp:include>
 		</div>
 	</body>
 </html>
