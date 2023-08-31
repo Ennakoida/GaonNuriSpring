@@ -125,6 +125,7 @@ main {
 			padding: 20px;
 			color: #000;
 			text-align: left;
+			line-height: 1.2;
 		}
 		
 		/* 첨부파일 */
@@ -195,6 +196,7 @@ main {
 				color: black;
 				border: none;
 				border-bottom: 2px dotted #bbb;
+				line-height: 1.2;
 			} 	
 			
 			/* 수정하기 */

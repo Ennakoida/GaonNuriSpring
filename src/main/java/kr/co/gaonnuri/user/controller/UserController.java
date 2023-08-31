@@ -3,6 +3,8 @@ package kr.co.gaonnuri.user.controller;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -210,8 +212,11 @@ public class UserController {
 	
 	// 마이페이지 페이지
 	@RequestMapping(value="/user/myInfo.do", method=RequestMethod.GET)
-	public String showMyInfo(@RequestParam("userId") String userId, Model model) {
+	public String showMyInfo(HttpSession session, Model model) {
 		try {
+			// 로그인 한 유저 아이디
+			String  userId = (String)session.getAttribute("userId");
+			
 			// 내 정보
 			User user = service.selectOneById(userId);
 			
@@ -336,6 +341,28 @@ public class UserController {
 				return "user/popShowRental";
 			} else {
 				model.addAttribute("msg", "한복 대여 내역 상세 조회");
+				model.addAttribute("url", "/user/myInfo.do?userId=" + userId);
+				return "common/serviceFailed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("msg", e.getMessage());
+			return "common/errorMessage";
+		}
+	}
+	
+	// 나의 질문 내역 팝업
+	@RequestMapping(value="/user/popQna.do", method=RequestMethod.GET)
+	public String popQna (String userId
+							, int qnaNo
+							, Model model) {
+		try {
+			Qna qna = qService.selectOneByNo(qnaNo);
+			if(qna != null) {
+				model.addAttribute("qna", qna);
+				return "user/popShowQna";
+			} else {
+				model.addAttribute("msg", "나의 질문 내역 상세 조회");
 				model.addAttribute("url", "/user/myInfo.do?userId=" + userId);
 				return "common/serviceFailed";
 			}
