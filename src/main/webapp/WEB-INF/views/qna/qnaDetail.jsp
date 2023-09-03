@@ -25,7 +25,9 @@
                 	<!-- 관리자(admin), 작성자(loginUser)가 아닐 경우 Q&A 삭제 불가능 -->
                     <c:if test="${ sessionScope.userId eq 'admin' || sessionScope.userId eq qna.qnaWriter }">
 	                  	<div id="detail-button">
-		                    <button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail-btn">수정하기</button>
+	                  		<c:if test="${ sessionScope.userId eq qna.qnaWriter }">	
+		                    	<button onclick="location.href='/qna/modify.do?qnaNo=${ qna.qnaNo }'" id="modify-detail-btn">수정하기</button>
+		                    </c:if>
 		                    <button onclick="deleteCheck();" id="delete-detail-btn">삭제하기</button>
                 		</div>
                     </c:if>
@@ -42,7 +44,7 @@
 						</tr>
 						<c:if test="${ qna.qnaFileName ne null }">
 							<tr>
-								<td colspan="5" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_NoticeFiles/${ qna.qnaFileRename }" download style="color:#979797;">${ qna.qnaFileName }</a></td>
+								<td colspan="5" id="downloadFile"><span style="color:black;">첨부파일 :</span> <a href="../resources/GN_QnaFiles/${ qna.qnaFileRename }" download style="color:#979797;">${ qna.qnaFileName }</a></td>
 							</tr>						
 						</c:if>
 					</table>
