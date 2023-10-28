@@ -125,6 +125,7 @@ Q&A 댓글 관리 |
 ### 5. 공지사항
 ![공지사항_목록](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/76d3a89b-bcb1-4ce1-84e7-344a4d31f320)
 ![공지사항_검색](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/12abbecf-925f-490d-9d06-d4fedce7143f)
+![공지사항_검색없음](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/28fd34b5-0f06-4004-9bb8-a07183ae9c7a)
 ![공지사항_상세페이지](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/01e9df54-762b-4a22-9be6-0037c46eff5e)
 **관리자**
 ![공지사항_목록_관리자](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/d1491892-ae1f-42b6-96a5-9ebf3759827c)
@@ -133,6 +134,10 @@ Q&A 댓글 관리 |
 ![공지사항_수정](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/e9d9eee8-109d-4925-ba21-19a7a2edae85)
 
 ### 6. Q&A
+![qna_목록조회](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/0665a4ba-c761-49c0-bbf8-622b449bbbb7)
+![qna_검색](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/3d89b2f6-8b19-4538-a6b3-e60276c956e8)
+![qna_검색없음](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/3e39ff07-35a7-491b-8345-3e636ec9e655)
+![qna_상세조회](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/6ee07ea3-2ea9-4870-9c5e-51de803210ec)
 
 ### 7. 회원가입
 ![회원가입](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/8dada225-dbf5-4b2f-8af3-46535d5f4530)
@@ -150,3 +155,8 @@ Q&A 댓글 관리 |
 ![비밀번호찾기_결과](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/4db68e00-7c30-485a-8072-d6ded95fa5cd)
 
 ### 10. 마이페이지
+![마이페이지](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/d49a05b3-109e-43a1-8877-acc77ec98f08)
+**상세 팝업창**
+![행사예매내역_팝업](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/66053257-6b8b-46d5-97ee-925e8d321040)
+![한복대여내역_팝업](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/5732c22a-cc0b-4d20-8d15-884da2b30eff)
+![나의질문_팝업](https://github.com/Ennakoida/GaonNuriSpring/assets/134674257/dedd2da4-507a-4b86-8a2b-a22b1c4b34da)
